@@ -1,0 +1,17 @@
+corsEnable: true
+
+serverHostname: "http://upgrade.jc-inter.com"
+
+serverPort: 8000
+
+log:
+  # 1 = debug 2 = info 3 = warn 4 = error 5 = fatal 6 = panic
+  logLevel: 3
+
+router:
+  # debug release test
+  logMode: "release"
+
+db:
+  mysql: "root:root@tcp(mysql:3306)/console-template?charset=utf8&parseTime=true"
+  showLog: false

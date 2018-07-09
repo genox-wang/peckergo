@@ -1,0 +1,17 @@
+corsEnable: true
+
+serverHostname: "http://localhost:8000"
+
+serverPort: 8000
+
+log:
+  # 1 = debug 2 = info 3 = warn 4 = error 5 = fatal 6 = panic
+  logLevel: 1
+
+router:
+  # debug release test
+  logMode: "debug"
+
+db:
+  mysql: "root:root@tcp(localhost:3306)/console-template?charset=utf8&parseTime=true"
+  showLog: true
