@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+  mysql:
+    image: mysql:8
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - mysqllog:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: console-template
+    restart: always
+
+  api:
+    build:
+      context: ./
+    volumes:
+      - ./console-template:/app/console-template
+      - ./api/config/config.yml.prod:/app/api/config/config.yml:ro
+      - /usr/local/go/lib/time/zoneinfo.zip /usr/local/go/lib/time/zoneinfo.zip
+    ports:
+      - "8901:8000"
+    links:
+      - mysql
+    restart: always
+
+  console:
+    image: nginx:1.13.9-alpine
+    ports:
+      - "8902:80"
+    volumes:
+      - ./console/dist:/usr/share/nginx/html
+    restart: always
+
+volumes:
+  mysqldata:
+  mysqllog:
+  
+
+

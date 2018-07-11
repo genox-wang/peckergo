@@ -14,15 +14,18 @@ var (
 )
 
 // OpenDB open grom
-func OpenDB(db string) {
+func OpenDB() {
 	var err error
-	log.Info("OpeningDB: ", db)
-	DB, err = gorm.Open("mysql", db)
+
+	dsn := config.GetString("db.dsn")
+
+	log.Info("OpeningDB: ", dsn)
+	DB, err = gorm.Open("mysql", dsn)
 
 	DB.LogMode(config.GetBool("db.showlog"))
 
 	if err != nil {
-		log.Fatalf(err.Error())
+		log.Panic(err.Error())
 	}
 	Migrate()
 	createAdminUser()
@@ -43,11 +46,19 @@ func CloseDB() {
 	}
 }
 
+func createDatabase() error {
+	db, err := gorm.Open("mysql", config.GetString("db.mysql"))
+	if err == nil {
+		return db.Exec("CREATE DATABASE `console-template` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;").Error
+	}
+	return err
+}
+
 func createAdminUser() {
 	u := &User{
 		DisplayName: "admin",
-		Username:    "admin",
-		Password:    "admin",
+		Username:    config.GetString("admin.userName"),
+		Password:    config.GetString("admin.password"),
 	}
 	NewUser(u)
 }

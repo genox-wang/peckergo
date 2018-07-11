@@ -1,7 +1,5 @@
 corsEnable: true
 
-serverHostname: "http://localhost:8000"
-
 serverPort: 8000
 
 log:
@@ -15,3 +13,8 @@ router:
 db:
   mysql: "root:root@tcp(localhost:3306)/console-template?charset=utf8&parseTime=true"
   showLog: true
+
+# 默认管理员用户名密码
+admin:
+  userName: "admin"
+  password: "admin"

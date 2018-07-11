@@ -13,8 +13,7 @@ import (
 func main() {
 	json.InitJSON(json.NewJSONiter())
 	initLogLevel()
-	log.Warnf("DB => %s", config.GetString("db.mysql"))
-	model.OpenDB(config.GetString("db.mysql"))
+	model.OpenDB()
 	defer model.CloseDB()
 	router.Run(config.GetInt("serverPort"))
 }
