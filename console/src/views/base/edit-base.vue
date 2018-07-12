@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Form ref="Form" :label-width="labelWidth" :model="form" :rules="rules">
+    <Form ref="Form" :label-width="120" :model="form" :rules="rules">
       <slot></slot>
     </Form>
     <br>
@@ -15,8 +15,6 @@ export default {
     form: {},
     // rules 验证规则 参考https://github.com/yiminghe/async-validator#async-validator
     rules: {},
-    // label 占据宽度
-    labelWidth: 100,
     // successMessage 表单提交成功反馈文本，默认'保存成功'
     successMessage: '',
     // nextRoute 表单提交成功跳转路由， 默认返回前一个页面

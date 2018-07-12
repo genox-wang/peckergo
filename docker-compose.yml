@@ -2,7 +2,8 @@ version: '2'
 
 services:
   mysql:
-    image: mysql:8
+    build:
+      context: ./mysql
     volumes:
       - mysqldata:/var/lib/mysql
       - mysqllog:/var/log/mysql

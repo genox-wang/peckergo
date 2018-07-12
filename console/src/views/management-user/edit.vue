@@ -19,8 +19,8 @@
         <Col span="16">
           <FormItem label="角色">
              <Select v-model="form.role">
-              <Option :value="0">管理员</Option>
-              <Option :value="1">操作员</Option>
+              <Option :value="1">管理员</Option>
+              <Option :value="2">操作员</Option>
             </Select>
           </FormItem>
         </Col>
@@ -59,13 +59,15 @@ export default {
       return this.$store.dispatch('update_user', this.form);
     }
   },
-  mounted () {
-    let payload = this.$route.params.payload;
-    if (payload) {
-      this.form.id = payload.id;
-      this.form.username = payload.username;
-      this.form.display_name = payload.display_name;
-      this.form.role = payload.role;
+  watch: {
+    '$route' (to, from) {
+      let payload = this.$route.params.payload;
+      if (payload) {
+        this.form.id = payload.id;
+        this.form.username = payload.username;
+        this.form.display_name = payload.display_name;
+        this.form.role = payload.role;
+      }
     }
   }
 };

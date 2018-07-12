@@ -45,8 +45,8 @@ export const otherRouter = {
   component: Main,
   children: [
     { path: 'home', title: '首页', name: 'home_index', component: () => import('@/views/home/home.vue') },
-    { path: '/management/user/new', title: '新建用户', name: 'user_new', access: [0], component: () => import('@/views/management-user/new.vue') },
-    { path: '/management/user/edit', title: '编辑用户', name: 'user_edit', access: [0], component: () => import('@/views/management-user/edit.vue') }
+    { path: '/management/user/new', title: '新建用户', name: 'user_new', access: [1], component: () => import('@/views/management-user/new.vue') },
+    { path: '/management/user/edit', title: '编辑用户', name: 'user_edit', access: [1], component: () => import('@/views/management-user/edit.vue') }
   ]
 };
 
@@ -64,7 +64,7 @@ export const appRouter = [
         icon: 'person-stalker',
         name: 'user',
         title: '用户',
-        access: [0],
+        access: [1],
         component: () => import('@/views/management-user/index.vue')
       }
     ]

@@ -19,8 +19,8 @@
         <Col span="16">
           <FormItem label="角色">
              <Select v-model="form.role">
-              <Option :value="0">管理员</Option>
-              <Option :value="1">操作员</Option>
+              <Option :value="1">管理员</Option>
+              <Option :value="2">操作员</Option>
             </Select>
           </FormItem>
         </Col>
@@ -41,7 +41,7 @@ export default {
         username: '',
         password: '',
         display_name: '',
-        role: 0
+        role: 1
       },
       rules: {
         username: [

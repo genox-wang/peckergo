@@ -9,9 +9,9 @@ import (
 
 const (
 	// RoleAdmin 管理员角色
-	RoleAdmin = 0
+	RoleAdmin = 1
 	// RoleOperator 操作员角色
-	RoleOperator = 1
+	RoleOperator = 2
 )
 
 // User 用户模型

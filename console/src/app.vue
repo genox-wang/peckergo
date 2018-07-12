@@ -32,8 +32,7 @@ export default {
     overflow: hidden;
   }
 
-  .app-main {
-    width: 100%;
-    height: 100%;
+  .span-left {
+    margin-left: 10px;
   }
 </style>

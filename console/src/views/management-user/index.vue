@@ -2,26 +2,14 @@
   <div>
     <Row>
       <Col span="18">
-         <Form :label-width="80">
-          <FormItem label="日期区间">
-            <DatePicker v-model="dataTimeRange" type="datetimerange" format="yyyy-MM-dd HH:mm" placeholder="时间范围" style="width: 260px"></DatePicker>
-          </FormItem>
-
-         </Form>
-      </Col>
-      <Col span="6">
-        <Button type="primary" @click="search">查询</Button>
-      </Col>
-    </Row>
-    <br>
-    <Row>
-      <Col span="18">
         <Button type="success" @click="newLine">新建</Button>
+        <Button type="warning" @click="refresh" class="span-left">刷新</Button>
       </Col>
     </Row>
     <br>
     <Table
       :data="items"
+      :loading="tableLoading"
       :columns="columns"
        @on-sort-change="sortChanged"
       stripe
@@ -58,6 +46,7 @@ export default {
   data () {
     return {
       deleteModel: false,
+      tableLoading: false,
       selectedID: 0,
       pagination: {
         total: 0,
@@ -94,8 +83,8 @@ export default {
           minWidth: 100,
           sortable: 'custom',
           render: (h, params) => {
-            const roles = ['管理员', '操作员'];
-            const colors = ['red', 'blue'];
+            const roles = ['未知', '管理员', '操作员'];
+            const colors = ['yellow', 'red', 'blue'];
             let id = params.row.role;
             return h('tag', {
               props: {
@@ -202,17 +191,21 @@ export default {
 
     refresh () {
       let self = this;
+      this.tableLoading = true;
       this.$store.dispatch('get_users', {
         limit: this.pagination.size,
         page: this.pagination.page - 1,
         orders: this.orders,
         filters: this.filters
       }).then((resp) => {
+        this.tableLoading = false;
         self.items = resp.data;
         if (resp.meta) {
           self.pagination.total = resp.meta.pagination.total;
           self.pagination.page = resp.meta.pagination.page + 1;
         }
+      }).catch(() => {
+        this.tableLoading = false;
       });
     },
 

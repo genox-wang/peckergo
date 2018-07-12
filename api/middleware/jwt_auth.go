@@ -15,22 +15,6 @@ const (
 	JwtScretKey = "JWT_SCRET_KEY"
 )
 
-// JWTAuthRoleRequired 用户角色认证中间件
-func JWTAuthRoleRequired(roles ...int) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		u, _ := c.Get("user")
-		user := u.(model.User)
-		log.Warn(user)
-		for _, r := range roles {
-			if r == user.Role {
-				c.Next()
-				return
-			}
-		}
-		c.AbortWithStatus(http.StatusUnauthorized)
-	}
-}
-
 // JWTAuthRequired is auth middleware
 func JWTAuthRequired() gin.HandlerFunc {
 	return func(c *gin.Context) {

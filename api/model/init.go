@@ -46,14 +46,6 @@ func CloseDB() {
 	}
 }
 
-func createDatabase() error {
-	db, err := gorm.Open("mysql", config.GetString("db.mysql"))
-	if err == nil {
-		return db.Exec("CREATE DATABASE `console-template` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;").Error
-	}
-	return err
-}
-
 func createAdminUser() {
 	u := &User{
 		DisplayName: "admin",

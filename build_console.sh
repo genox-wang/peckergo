@@ -3,7 +3,11 @@ cd console
 
 echo "npm install..."
 
-npm install --registry=https://registry.npm.taobao.org
+npm install
+
+rm env.js
+cp env.prod.js env.js
+
 
 if [ $? -eq 0 ]; then
   echo "build..."

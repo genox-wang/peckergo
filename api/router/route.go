@@ -18,18 +18,24 @@ func route() {
 	// 	c.HTML(http.StatusOK, "index.html", nil)
 	// })
 
-	authorized := router.Group("/console")
-	authorized.Use(middleware.JWTAuthRequired())
+	consoleAdmin := router.Group("/console")
+	consoleAdmin.
+		Use(middleware.JWTAuthRequired()).
+		Use(middleware.AuthRoleRequired(model.RoleAdmin))
 	{
-		authorized.
-			Use(middleware.AuthRoleRequired(model.RoleAdmin)).POST("/users/", controller.NewUserPost)
-		authorized.
-			Use(middleware.AuthRoleRequired(model.RoleAdmin)).GET("/users/all", controller.AllUsersGet)
-		authorized.
-			Use(middleware.AuthRoleRequired(model.RoleAdmin)).PUT("/users/:id", controller.UpdateUserPut)
-		authorized.
-			Use(middleware.AuthRoleRequired(model.RoleAdmin)).DELETE("/users/:id", controller.UserDelete)
+		consoleAdmin.POST("/users/", controller.NewUserPost)
+		consoleAdmin.GET("/users/all", controller.AllUsersGet)
+		consoleAdmin.PUT("/users/:id", controller.UpdateUserPut)
+		consoleAdmin.DELETE("/users/:id", controller.UserDelete)
 	}
+
+	// consoleOperator := router.Group("/console")
+	// consoleOperator.
+	// 	Use(middleware.JWTAuthRequired()).
+	// 	Use(middleware.AuthRoleRequired(model.RoleAdmin, model.RoleOperator))
+	// {
+
+	// }
 
 	// api := router.Group("/api")
 	// {
