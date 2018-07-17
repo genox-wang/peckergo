@@ -97,6 +97,7 @@ export default {
           title: '创建时间',
           key: 'created_at',
           minWidth: 150,
+          sortable: 'custom',
           render: (h, {row}) => {
             return h('div', this.$d(row.created_at).format('YYYY-MM-DD HH:mm:ss'));
           }
@@ -105,6 +106,7 @@ export default {
           title: '更新时间',
           key: 'updated_at',
           minWidth: 150,
+          sortable: 'custom',
           render: (h, {row}) => {
             return h('div', this.$d(row.updated_at).format('YYYY-MM-DD HH:mm:ss'));
           }
@@ -130,7 +132,7 @@ export default {
                     this.$router.push({
                       name: 'user_edit',
                       params: {
-                        payload: params.row
+                        id: params.row.id
                       }
                     });
                   }

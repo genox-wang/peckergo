@@ -85,3 +85,10 @@ func AllUsers(meta *TableMeta) *TableUser {
 		Meta: meta,
 	}
 }
+
+// UserByID 通过 id 获取 User
+func UserByID(id uint) *User {
+	var m User
+	DB.Where("id = ?", id).First(&m)
+	return &m
+}

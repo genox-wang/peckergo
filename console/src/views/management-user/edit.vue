@@ -37,6 +37,7 @@ export default {
   },
   data () {
     return {
+      routeName: '',
       form: {
         id: 0,
         username: '',
@@ -57,17 +58,32 @@ export default {
   methods: {
     save () {
       return this.$store.dispatch('update_user', this.form);
+    },
+    reset () {
+      let self = this;
+      this.$store.dispatch('get_user_by_id', this.$route.params.id).then((data) => {
+        if (data) {
+          self.form.id = data.id;
+          self.form.username = data.username;
+          self.form.display_name = data.display_name;
+          self.form.role = data.role;
+        }
+      });
     }
   },
+
   watch: {
     '$route' (to, from) {
-      let payload = this.$route.params.payload;
-      if (payload) {
-        this.form.id = payload.id;
-        this.form.username = payload.username;
-        this.form.display_name = payload.display_name;
-        this.form.role = payload.role;
+      if (this._.isEqual(this.routeName, this.$route.name)) {
+        this.reset();
       }
+    }
+  },
+
+  mounted () {
+    if (this._.isEqual(this.routeName, '')) {
+      this.routeName = this.$route.name;
+      this.reset();
     }
   }
 };

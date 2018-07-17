@@ -4,6 +4,7 @@ import (
 	"console-template/api/middleware"
 	"console-template/api/model"
 	"console-template/api/utils/json"
+	"console-template/api/utils/log"
 	"net/http"
 	"strconv"
 
@@ -56,6 +57,14 @@ func NewUserPost(c *gin.Context) {
 func AllUsersGet(c *gin.Context) {
 	meta := model.TableMetaFromQuery(c)
 	json.WriteGinJSON(c, http.StatusOK, model.AllUsers(meta))
+}
+
+// UserByIDGet get user by id
+func UserByIDGet(c *gin.Context) {
+	id, _ := strconv.ParseInt(c.Param("id"), 10, 64)
+	log.Info("UserByIDGet ", id)
+	m := model.UserByID(uint(id))
+	json.WriteGinJSON(c, http.StatusOK, m)
 }
 
 // UpdateUserPut 更新 User

@@ -18,7 +18,7 @@ services:
     volumes:
       - ./console-template:/app/console-template
       - ./api/config/config.yml.prod:/app/api/config/config.yml:ro
-      - /usr/local/go/lib/time/zoneinfo.zip /usr/local/go/lib/time/zoneinfo.zip
+      - /usr/local/go/lib/time/zoneinfo.zip:/usr/local/go/lib/time/zoneinfo.zip
     ports:
       - "8901:8000"
     links:

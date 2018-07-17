@@ -43,7 +43,14 @@ const user = {
     },
 
     get_users ({}, {limit, page, orders, filters}) {
-      return ajax.get(`/console/users/all?${util.getAllQuery(limit, page, orders, filters)}`)
+      return ajax.get(`/console/users/?${util.getAllQuery(limit, page, orders, filters)}`)
+        .then(resp => {
+          return resp.data;
+        });
+    },
+
+    get_user_by_id ({}, payload) {
+      return ajax.get(`/console/users/${payload}`)
         .then(resp => {
           return resp.data;
         });

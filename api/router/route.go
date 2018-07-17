@@ -24,7 +24,8 @@ func route() {
 		Use(middleware.AuthRoleRequired(model.RoleAdmin))
 	{
 		consoleAdmin.POST("/users/", controller.NewUserPost)
-		consoleAdmin.GET("/users/all", controller.AllUsersGet)
+		consoleAdmin.GET("/users/", controller.AllUsersGet)
+		consoleAdmin.GET("/users/:id", controller.UserByIDGet)
 		consoleAdmin.PUT("/users/:id", controller.UpdateUserPut)
 		consoleAdmin.DELETE("/users/:id", controller.UserDelete)
 	}
