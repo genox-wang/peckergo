@@ -28,7 +28,7 @@
           </Row>
           <Row>
             <Col span="12">
-              <Button type="success" @click="newLine">新建</Button>
+              <Button type="success" @click="onNew">新建</Button>
             </Col>
             <Col span="12">
               <Button type="primary" style="float: right"  @click="reset">查询</Button>
@@ -37,36 +37,25 @@
         </div>
       </Panel>
     </Collapse>
-    <!-- <Card>
-
-    </Card> -->
     <br>
-    <Table
+    <data-table-base
       :data="items"
       :loading="tableLoading"
       :columns="columns"
-      size="small"
+      :total="pagination.total"
+      :current="pagination.page"
+      :page-size="pagination.size"
       @on-sort-change="sortChanged"
-      stripe
-      border
-      disabled-hover
+      @on-change="pageChanged"
+      @on-page-size-change="sizeChanged"
+      @on-edit="onEdit"
+      @on-delete="onDelete"
+      show-action
+      show-edit
+      show-delete
     >
-    </Table>
-    <div style="margin: 10px;overflow: hidden">
-      <div style="float: right;">
-        <Page
-          :total="pagination.total"
-          :current="pagination.page"
-          :page-size="pagination.size"
-          :page-size-opts="[5,10,20]"
-           @on-change="pageChanged"
-           @on-page-size-change="sizeChanged"
-           show-total
-           show-elevator
-           show-sizer
-        ></Page>
-      </div>
-    </div>
+    </data-table-base>
+
     <Modal
       v-model="deleteModel"
       title="确认删除"
@@ -78,16 +67,21 @@
 </template>
 
 <script>
-import util from '@/libs/util';
+import DataTableBase from '@/views/base/data_table_base';
 import vueRouterKeepaliveReset from '@/views/mixins/vue_router_keepalive_reset';
+import tableFilterHelper from '@/views/mixins/data_table_helper';
 
 export default {
   mixins: [
-    vueRouterKeepaliveReset
+    vueRouterKeepaliveReset,
+    tableFilterHelper
   ],
+  components: {
+    DataTableBase
+  },
   data () {
     return {
-      routeName: '',
+      apiGet: 'get_users',
       deleteModel: false,
       tableLoading: false,
       selectedID: 0,
@@ -99,17 +93,9 @@ export default {
       dateTimeRange: [],
       role: 0,
       displayName: '',
-      filters: [],
       items: [],
       orders: [],
       columns: [
-        {
-          title: 'ID',
-          key: 'id',
-          fixed: 'left',
-          width: 100,
-          sortable: 'custom'
-        },
         {
           title: '用户名',
           key: 'username',
@@ -124,6 +110,7 @@ export default {
         },
         {
           title: '角色',
+          align: 'center',
           key: 'role',
           minWidth: 100,
           sortable: 'custom',
@@ -155,56 +142,12 @@ export default {
           render: (h, {row}) => {
             return h('div', this.$d(row.updated_at).format('YYYY-MM-DD HH:mm:ss'));
           }
-        },
-        {
-          title: '操作',
-          key: 'action',
-          width: 150,
-          fixed: 'right',
-          align: 'center',
-          render: (h, params) => {
-            return h('div', [
-              h('Button', {
-                props: {
-                  type: 'primary',
-                  size: 'small'
-                },
-                style: {
-                  marginRight: '5px'
-                },
-                on: {
-                  click: () => {
-                    this.$router.push({
-                      name: 'user_edit',
-                      params: {
-                        id: params.row.id
-                      }
-                    });
-                  }
-                }
-              }, '编辑'),
-              h('Button', {
-                props: {
-                  type: 'error',
-                  size: 'small'
-                },
-                style: {
-                  marginRight: '5px'
-                },
-                on: {
-                  click: () => {
-                    this.deleteModel = true;
-                    this.selectedID = params.row.id;
-                  }
-                }
-              }, '删除')
-            ]);
-          }
         }
       ]
     };
   },
   methods: {
+
     pageChanged (page) {
       this.pagination.page = page;
       this.reset();
@@ -220,54 +163,35 @@ export default {
       this.reset();
     },
 
-    newLine () {
+    onNew () {
       this.$router.push({
         name: 'user_new'
       });
     },
 
-    pushFilterTimeRange (fieldName, dateTimeRange) {
-      if (this._.isEqual(typeof (dateTimeRange[0]), 'object') || this._.isEqual(typeof (dateTimeRange[1]), 'object')) {
-        let sTime = dateTimeRange[0].toISOString();
-        let eTime = dateTimeRange[1].toISOString();
-        this.filters.push(util.wr(fieldName, sTime, eTime));
-      }
+    onEdit (id) {
+      this.$router.push({
+        name: 'user_edit',
+        params: {
+          id: id
+        }
+      });
     },
 
-    pushFilterEqual (fieldName, value) {
-      this.filters.push(util.we(fieldName, value));
+    onDelete (id) {
+      this.deleteModel = true;
+      this.selectedID = id;
     },
 
     formatFilters () {
       this.filters = [];
-      this.pushFilterTimeRange('created_at', this.dateTimeRange);
+      this.fPushTimeRange('created_at', this.dateTimeRange);
       if (this.role && this.role !== 0) {
-        this.pushFilterEqual('role', this.role);
+        this.fPushEqual('role', this.role);
       }
       if (this.displayName !== '') {
-        this.pushFilterEqual('display_name', this.displayName);
+        this.fPushEqual('display_name', this.displayName);
       }
-    },
-
-    reset () {
-      this.formatFilters();
-      let self = this;
-      this.tableLoading = true;
-      this.$store.dispatch('get_users', {
-        limit: this.pagination.size,
-        page: this.pagination.page - 1,
-        orders: this.orders,
-        filters: this.filters
-      }).then((resp) => {
-        this.tableLoading = false;
-        self.items = resp.data;
-        if (resp.meta) {
-          self.pagination.total = resp.meta.pagination.total;
-          self.pagination.page = resp.meta.pagination.page + 1;
-        }
-      }).catch(() => {
-        this.tableLoading = false;
-      });
     },
 
     deleteOk () {

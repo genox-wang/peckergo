@@ -41,7 +41,6 @@ export default {
   },
   data () {
     return {
-      routeName: '',
       form: {
         id: 0,
         username: '',
