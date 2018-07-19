@@ -5,6 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
+	"time"
+
+	"console-template/api/utils/json"
+	"console-template/api/utils/log"
+
+	cache "ti-ding.com/wangji/gocachemid"
 )
 
 const (
@@ -12,6 +19,10 @@ const (
 	RoleAdmin = 1
 	// RoleOperator 操作员角色
 	RoleOperator = 2
+)
+
+var (
+	userCountCache *cache.Cache
 )
 
 // User 用户模型
@@ -47,6 +58,7 @@ func Login(m *User) error {
 // NewUser 创建 User
 func NewUser(m *User) error {
 	m.Password = CrptoPassword(m.Password)
+	userCountCache.DelWithPrefix("user_")
 	return DB.Create(m).Error
 }
 
@@ -60,6 +72,7 @@ func SaveUser(m *User) error {
 func DeleteUser(id uint) error {
 	m := &User{}
 	m.ID = id
+	userCountCache.DelWithPrefix("user_")
 	return DB.Delete(m).Error
 }
 
@@ -73,13 +86,34 @@ func CrptoPassword(password string) string {
 	return fmt.Sprintf("%x", b.Sum(nil))
 }
 
+func init() {
+	userCountCache = cache.NewCache(&cache.ClientGoCache{}, "user_", func(fs ...string) string {
+		if len(fs) < 1 {
+			return "0"
+		}
+		var meta *TableMeta
+		err := json.Unmarshal(fs[0], &meta)
+		if err != nil {
+			log.Error(err.Error())
+			return "0"
+		}
+		newDB := WrapMeta(*meta, DB)
+		var count uint
+		newDB.Model(User{}).Count(&count)
+		return fmt.Sprintf("%d", count)
+	}, time.Minute*5, true)
+}
+
 // AllUsers 获取所有 Users
 func AllUsers(meta *TableMeta) *TableUser {
+	metaJSON, _ := json.Marshal(meta)
+	countCache, _ := userCountCache.Get(metaJSON)
+	count, _ := strconv.ParseUint(countCache, 10, 64)
+
 	newDB := WrapMeta(*meta, DB)
-	var count uint
 	users := make([]*User, 0)
-	newDB.Find(&users).Count(&count)
-	meta.Pagination.Total = count
+	newDB.Find(&users)
+	meta.Pagination.Total = uint(count)
 	return &TableUser{
 		Data: users,
 		Meta: meta,

@@ -1,19 +1,57 @@
 <template>
   <div>
-    <Row>
-      <Col span="18">
-        <Button type="success" @click="newLine">新建</Button>
-        <Button type="warning" @click="refresh" class="span-left">刷新</Button>
-      </Col>
-    </Row>
+    <Collapse>
+      <Panel name="1">
+        选项
+        <div slot="content">
+          <Row>
+            <Form :label-width="80">
+              <Col span="8">
+                <FormItem label="创建时间">
+                  <DatePicker v-model="dateTimeRange" type="datetimerange" format="yyyy-MM-dd HH:mm" placeholder="创建时间" style="width: 260px"></DatePicker>
+                </FormItem>
+              </Col>
+              <Col span="8">
+                <FormItem label="角色">
+                  <Select v-model="role" style="width:200px" filterable clearable>
+                    <Option :value="1">管理员</Option>
+                    <Option :value="2">操作员</Option>
+                  </Select>
+                </FormItem>
+              </Col>
+              <Col span="8">
+                <FormItem label="昵称">
+                  <Input v-model="displayName" placeholder="昵称" clearable style="width: 200px"></Input>
+                </FormItem>
+              </Col>
+            </Form>
+          </Row>
+          <Row>
+            <Col span="12">
+              <Button type="success" @click="newLine">新建</Button>
+            </Col>
+            <Col span="12">
+              <Button type="primary" style="float: right"  @click="reset">查询</Button>
+            </Col>
+          </Row>
+        </div>
+      </Panel>
+    </Collapse>
+    <!-- <Card>
+
+    </Card> -->
     <br>
     <Table
       :data="items"
       :loading="tableLoading"
       :columns="columns"
-       @on-sort-change="sortChanged"
+      size="small"
+      @on-sort-change="sortChanged"
       stripe
-    ></Table>
+      border
+      disabled-hover
+    >
+    </Table>
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
         <Page
@@ -41,10 +79,15 @@
 
 <script>
 import util from '@/libs/util';
+import vueRouterKeepaliveReset from '@/views/mixins/vue_router_keepalive_reset';
 
 export default {
+  mixins: [
+    vueRouterKeepaliveReset
+  ],
   data () {
     return {
+      routeName: '',
       deleteModel: false,
       tableLoading: false,
       selectedID: 0,
@@ -53,7 +96,9 @@ export default {
         page: 1,
         size: 10
       },
-      dataTimeRange: [],
+      dateTimeRange: [],
+      role: 0,
+      displayName: '',
       filters: [],
       items: [],
       orders: [],
@@ -162,17 +207,17 @@ export default {
   methods: {
     pageChanged (page) {
       this.pagination.page = page;
-      this.refresh();
+      this.reset();
     },
 
     sizeChanged (size) {
       this.pagination.size = size;
-      this.refresh();
+      this.reset();
     },
 
     sortChanged ({key, order}) {
       this.orders = this._.isEqual(order, 'desc') ? ['-' + key] : [key];
-      this.refresh();
+      this.reset();
     },
 
     newLine () {
@@ -181,17 +226,31 @@ export default {
       });
     },
 
-    search () {
-      this.filters = [];
-      if (this._.isEqual(typeof (this.dataTimeRange[0]), 'object') || this._.isEqual(typeof (this.dataTimeRange[1]), 'object')) {
-        let sTime = this.dataTimeRange[0].toISOString();
-        let eTime = this.dataTimeRange[1].toISOString();
-        this.filters.push(util.wr('created_at', sTime, eTime));
+    pushFilterTimeRange (fieldName, dateTimeRange) {
+      if (this._.isEqual(typeof (dateTimeRange[0]), 'object') || this._.isEqual(typeof (dateTimeRange[1]), 'object')) {
+        let sTime = dateTimeRange[0].toISOString();
+        let eTime = dateTimeRange[1].toISOString();
+        this.filters.push(util.wr(fieldName, sTime, eTime));
       }
-      this.refresh();
     },
 
-    refresh () {
+    pushFilterEqual (fieldName, value) {
+      this.filters.push(util.we(fieldName, value));
+    },
+
+    formatFilters () {
+      this.filters = [];
+      this.pushFilterTimeRange('created_at', this.dateTimeRange);
+      if (this.role && this.role !== 0) {
+        this.pushFilterEqual('role', this.role);
+      }
+      if (this.displayName !== '') {
+        this.pushFilterEqual('display_name', this.displayName);
+      }
+    },
+
+    reset () {
+      this.formatFilters();
       let self = this;
       this.tableLoading = true;
       this.$store.dispatch('get_users', {
@@ -214,13 +273,9 @@ export default {
     deleteOk () {
       this.$store.dispatch('delete_user', this.selectedID).then(() => {
         this.$Message.success('删除成功');
-        this.refresh();
+        this.reset();
       });
     }
-  },
-
-  mounted () {
-    this.refresh();
   }
 };
 </script>

@@ -30,8 +30,12 @@
 
 <script>
 import editBase from '../base/edit-base.vue';
+import vueRouterKeepaliveReset from '@/views/mixins/vue_router_keepalive_reset';
 
 export default {
+  mixins: [
+    vueRouterKeepaliveReset
+  ],
   components: {
     editBase
   },
@@ -69,21 +73,6 @@ export default {
           self.form.role = data.role;
         }
       });
-    }
-  },
-
-  watch: {
-    '$route' (to, from) {
-      if (this._.isEqual(this.routeName, this.$route.name)) {
-        this.reset();
-      }
-    }
-  },
-
-  mounted () {
-    if (this._.isEqual(this.routeName, '')) {
-      this.routeName = this.$route.name;
-      this.reset();
     }
   }
 };
