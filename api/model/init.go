@@ -51,6 +51,7 @@ func createAdminUser() {
 		DisplayName: "admin",
 		Username:    config.GetString("admin.userName"),
 		Password:    config.GetString("admin.password"),
+		Role:        RoleAdmin,
 	}
 	NewUser(u)
 }
