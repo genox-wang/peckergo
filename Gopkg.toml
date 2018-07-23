@@ -64,3 +64,8 @@
 [[constraint]]
   name = "ti-ding.com/wangji/gocachemid"
   version = "0.0.4"
+
+[[constraint]]
+  name = "ti-ding.com/wangji/singularity"
+  version = "0.0.1"
+  

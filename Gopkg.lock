@@ -236,9 +236,18 @@
   revision = "c14e846bb6e32c89c40b7c0ad9ace552f8e42e97"
   version = "0.0.4"
 
+[[projects]]
+  name = "ti-ding.com/wangji/singularity"
+  packages = [
+    "engine",
+    "utils"
+  ]
+  revision = "2962f67b1a28f1764c02d4177e5d78c7b5c0154b"
+  version = "0.0.1"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "fd98f2fffdf4aa08ab28852c100b0e3e89fa7f4360f510347bc96ecc44c54082"
+  inputs-digest = "4e58abe3a51596fc55bcdaf8f451fd1622710ef317b726e9b92b8a1732f4108c"
   solver-name = "gps-cdcl"
   solver-version = 1

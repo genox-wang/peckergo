@@ -28,6 +28,8 @@ func route() {
 		consoleAdmin.GET("/users/:id", controller.UserByIDGet)
 		consoleAdmin.PUT("/users/:id", controller.UpdateUserPut)
 		consoleAdmin.DELETE("/users/:id", controller.UserDelete)
+
+		//ph-router-admin don't remove this line
 	}
 
 	// consoleOperator := router.Group("/console")

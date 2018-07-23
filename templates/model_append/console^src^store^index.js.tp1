@@ -1,0 +1,2 @@
+import {{modelName}} from './modules/{{modelName}}';
+// ph-store-index-import don't remove this line

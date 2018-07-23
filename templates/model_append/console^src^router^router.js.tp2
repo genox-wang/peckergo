@@ -1,0 +1,9 @@
+,{
+        path: '{{modelName}}s',
+        icon: 'person-stalker',
+        name: '{{modelName}}s',
+        title: '{{ModelName}}',
+        access: [1],
+        component: () => import('@/views/management-{{modelName}}/index.vue')
+      }
+      // ph-appRouter don't remove this line
