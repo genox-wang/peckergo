@@ -57,6 +57,16 @@
   version = "v1.4.0"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/golang/freetype"
+  packages = [
+    ".",
+    "raster",
+    "truetype"
+  ]
+  revision = "e2365dfdc4a05e4b8299a783240d4a7d5a65d4e4"
+
+[[projects]]
   name = "github.com/golang/protobuf"
   packages = ["proto"]
   revision = "b4deda0973fb4c70b50d226b1af49f3da59f5265"
@@ -128,6 +138,12 @@
   version = "1.0.1"
 
 [[projects]]
+  name = "github.com/mojocn/base64Captcha"
+  packages = ["."]
+  revision = "7d0b78ad1685f79a0fea381c107d77ec1f812500"
+  version = "v1.09"
+
+[[projects]]
   name = "github.com/patrickmn/go-cache"
   packages = ["."]
   revision = "a3647f8e31d79543b2d0f0ae2fe5c379d72cedc0"
@@ -192,6 +208,15 @@
 
 [[projects]]
   branch = "master"
+  name = "golang.org/x/image"
+  packages = [
+    "font",
+    "math/fixed"
+  ]
+  revision = "c73c2afc3b812cdd6385de5a50616511c4a3d458"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/sys"
   packages = [
     "unix",
@@ -236,18 +261,9 @@
   revision = "c14e846bb6e32c89c40b7c0ad9ace552f8e42e97"
   version = "0.0.4"
 
-[[projects]]
-  name = "ti-ding.com/wangji/singularity"
-  packages = [
-    "engine",
-    "utils"
-  ]
-  revision = "2962f67b1a28f1764c02d4177e5d78c7b5c0154b"
-  version = "0.0.1"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "4e58abe3a51596fc55bcdaf8f451fd1622710ef317b726e9b92b8a1732f4108c"
+  inputs-digest = "dd279a062b52665aba53661829b6968019f8d7497dba95bcf794d0e54d3fbaf6"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -32,6 +32,8 @@ type User struct {
 	Username    string `json:"username" gorm:"unique;not null"`
 	Password    string `json:"password" gorm:"not null"`
 	Role        int    `json:"role" gorm:"default:0"`
+	CaptchaKey  string `json:"captcha_key" gorm:"-"`
+	Captcha     string `json:"captcha" gorm:"-"`
 }
 
 // TableUser 返回表单用户数据模型

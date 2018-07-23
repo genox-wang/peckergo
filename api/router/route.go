@@ -12,6 +12,7 @@ import (
 
 func route() {
 	router.POST("/console/login", controller.LoginPost)
+	router.GET("/console/captcha", controller.CaptchaGet)
 	// router.LoadHTMLFiles(config.GetString("html.index"))
 
 	// router.GET("/", func(c *gin.Context) {

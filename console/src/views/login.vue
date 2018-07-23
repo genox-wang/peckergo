@@ -26,10 +26,22 @@
               </span>
               </Input>
             </FormItem>
+            <Row>
+              <Col span="16">
+                <img :src="captcha" @click="resetCaptcha"/>
+              </Col>
+              <Col span="8">
+                <Input v-model="captchaValue" placeholder="验证码"/>
+              </Col>
+            </Row>
+
+            <input type="hidden" :value="captchaKey"/>
+
             <FormItem>
               <Button @click="handleSubmit" type="primary" long>登录</Button>
             </FormItem>
           </Form>
+
         </div>
       </Card>
     </div>
@@ -41,6 +53,9 @@
 export default {
   data () {
     return {
+      captchaKey: '',
+      captcha: '',
+      captchaValue: '',
       form: {
         userName: '',
         password: ''
@@ -65,7 +80,9 @@ export default {
         if (valid) {
           this.$store.dispatch('login', {
             username: this.form.userName,
-            password: this.form.password
+            password: this.form.password,
+            Captcha_key: this.captchaKey,
+            Captcha: this.captchaValue
           })
             .then(() => {
               this.$store.commit('setAvator',
@@ -75,10 +92,22 @@ export default {
                 name: 'home_index'
               });
             })
-            .catch(() => {});
+            .catch(() => {
+              this.resetCaptcha();
+            });
         }
       });
+    },
+    resetCaptcha () {
+      let self = this;
+      this.$store.dispatch('get_captcha').then((data) => {
+        self.captchaKey = data.key;
+        self.captcha = data.captcha;
+      });
     }
+  },
+  mounted () {
+    this.resetCaptcha();
   }
 };
 </script>
