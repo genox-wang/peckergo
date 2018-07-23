@@ -36,6 +36,7 @@ func Migrate() {
 	log.Info("Migrate ... ")
 	DB.AutoMigrate(
 		new(User),
+		//ph-AutoMigrate don't remove this line
 	)
 }
 
@@ -51,6 +52,7 @@ func createAdminUser() {
 		DisplayName: "admin",
 		Username:    config.GetString("admin.userName"),
 		Password:    config.GetString("admin.password"),
+		Role:        RoleAdmin,
 	}
 	NewUser(u)
 }

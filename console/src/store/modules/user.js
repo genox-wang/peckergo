@@ -42,6 +42,12 @@ const user = {
         });
     },
 
+    get_captcha () {
+      return ajax.get('/console/captcha').then(resp => {
+        return resp.data;
+      });
+    },
+
     get_users ({}, {limit, page, orders, filters}) {
       return ajax.get(`/console/users/?${util.getAllQuery(limit, page, orders, filters)}`)
         .then(resp => {

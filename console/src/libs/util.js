@@ -13,7 +13,7 @@ util.title = function (title) {
 const ajaxUrl = env === 'development'
   ? 'http://127.0.0.1:8000'
   : env === 'production'
-    ? 'http://127.0.0.1:8901'
+    ? 'http://api.template.qf2017.cn'
     : 'https://debug.url.com';
 
 util.ajax = axios.create({

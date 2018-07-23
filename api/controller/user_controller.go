@@ -9,13 +9,44 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/mojocn/base64Captcha"
 )
+
+// CaptchaGet 获取图形验证码
+func CaptchaGet(c *gin.Context) {
+	//config struct for digits
+	//数字验证码配置
+	var configD = base64Captcha.ConfigDigit{
+		Height:     50,
+		Width:      150,
+		MaxSkew:    0.7,
+		DotCount:   80,
+		CaptchaLen: 4,
+	}
+
+	//create a digits captcha.
+	idKeyD, capD := base64Captcha.GenerateCaptcha("", configD)
+	//write to base64 string.
+	base64stringD := base64Captcha.CaptchaWriteToBase64Encoding(capD)
+
+	json.WriteGinJSON(c, http.StatusOK, gin.H{
+		"key":     idKeyD,
+		"captcha": base64stringD,
+	})
+}
 
 // LoginPost is a function
 func LoginPost(c *gin.Context) {
 	var user model.User
 
 	if err := json.BindGinJSON(c, &user); err == nil {
+		verifyResult := base64Captcha.VerifyCaptcha(user.CaptchaKey, user.Captcha)
+		if !verifyResult {
+			json.WriteGinJSON(c, http.StatusUnauthorized, gin.H{
+				"msg": "验证码错误",
+			})
+			return
+		}
 		if err := model.Login(&user); err == nil {
 			json.WriteGinJSON(c, http.StatusOK, gin.H{
 				"token": middleware.GetJWTToken(user),

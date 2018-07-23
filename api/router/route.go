@@ -12,6 +12,7 @@ import (
 
 func route() {
 	router.POST("/console/login", controller.LoginPost)
+	router.GET("/console/captcha", controller.CaptchaGet)
 	// router.LoadHTMLFiles(config.GetString("html.index"))
 
 	// router.GET("/", func(c *gin.Context) {
@@ -28,6 +29,8 @@ func route() {
 		consoleAdmin.GET("/users/:id", controller.UserByIDGet)
 		consoleAdmin.PUT("/users/:id", controller.UpdateUserPut)
 		consoleAdmin.DELETE("/users/:id", controller.UserDelete)
+
+		//ph-router-admin don't remove this line
 	}
 
 	// consoleOperator := router.Group("/console")

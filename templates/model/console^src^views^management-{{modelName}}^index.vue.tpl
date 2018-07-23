@@ -11,19 +11,6 @@
                   <DatePicker v-model="dateTimeRange" type="datetimerange" format="yyyy-MM-dd HH:mm" placeholder="创建时间" style="width: 260px"></DatePicker>
                 </FormItem>
               </Col>
-              <Col span="8">
-                <FormItem label="角色">
-                  <Select v-model="role" style="width:200px" filterable clearable>
-                    <Option :value="1">管理员</Option>
-                    <Option :value="2">操作员</Option>
-                  </Select>
-                </FormItem>
-              </Col>
-              <Col span="8">
-                <FormItem label="昵称">
-                  <Input v-model="displayName" placeholder="昵称" clearable style="width: 200px"></Input>
-                </FormItem>
-              </Col>
             </Form>
           </Row>
           <Row>
@@ -81,50 +68,20 @@ export default {
   },
   data () {
     return {
-      apiGet: 'get_users',
+      apiGet: 'get_{{modelName}}s',
       deleteModel: false,
       tableLoading: false,
+      dateTimeRange: [],
       selectedID: 0,
       pagination: {
         total: 0,
         page: 1,
         size: 10
       },
-      dateTimeRange: [],
-      role: 0,
-      displayName: '',
       items: [],
       orders: [],
       columns: [
-        {
-          title: '用户名',
-          key: 'username',
-          minWidth: 100,
-          sortable: 'custom'
-        },
-        {
-          title: '昵称',
-          key: 'display_name',
-          minWidth: 100,
-          sortable: 'custom'
-        },
-        {
-          title: '角色',
-          align: 'center',
-          key: 'role',
-          minWidth: 100,
-          sortable: 'custom',
-          render: (h, params) => {
-            const roles = ['未知', '管理员', '操作员'];
-            const colors = ['yellow', 'red', 'blue'];
-            let id = params.row.role;
-            return h('tag', {
-              props: {
-                color: colors[id]
-              }
-            }, roles[id]);
-          }
-        },
+        // TODO
         {
           title: '创建时间',
           key: 'created_at',
@@ -165,13 +122,13 @@ export default {
 
     onNew () {
       this.$router.push({
-        name: 'user_new'
+        name: '{{modelName}}_new'
       });
     },
 
     onEdit (id) {
       this.$router.push({
-        name: 'user_edit',
+        name: '{{modelName}}_edit',
         params: {
           id: id
         }
@@ -186,16 +143,10 @@ export default {
     formatFilters () {
       this.filters = [];
       this.fPushTimeRange('created_at', this.dateTimeRange);
-      if (this.role && this.role !== 0) {
-        this.fPushEqual('role', this.role);
-      }
-      if (this.displayName !== '') {
-        this.fPushEqual('display_name', this.displayName);
-      }
     },
 
     deleteOk () {
-      this.$store.dispatch('delete_user', this.selectedID).then(() => {
+      this.$store.dispatch('delete_{{modelName}}', this.selectedID).then(() => {
         this.$Message.success('删除成功');
         this.reset();
       });

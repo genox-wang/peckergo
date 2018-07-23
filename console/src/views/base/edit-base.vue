@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Form ref="Form" :label-width="120" :model="form" :rules="rules">
+    <Form ref="form" :label-width="120" :model="form" :rules="rules" @submit.native.prevent>
       <slot></slot>
     </Form>
     <br>
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     save () {
-      this.$refs.Form.validate((valid) => {
+      this.$refs.form.validate((valid) => {
         if (valid) {
           if (this.savePromise) {
             this.savePromise().then(() => {

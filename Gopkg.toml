@@ -60,3 +60,16 @@
 [prune]
   go-tests = true
   unused-packages = true
+
+[[constraint]]
+  name = "ti-ding.com/wangji/gocachemid"
+  version = "0.0.4"
+
+[[constraint]]
+  name = "ti-ding.com/wangji/singularity"
+  version = "0.0.1"
+  
+
+[[constraint]]
+  name = "github.com/mojocn/base64Captcha"
+  version = "1.9.0"

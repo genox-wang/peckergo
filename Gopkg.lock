@@ -36,15 +36,41 @@
   version = "v1.2"
 
 [[projects]]
+  name = "github.com/go-redis/redis"
+  packages = [
+    ".",
+    "internal",
+    "internal/consistenthash",
+    "internal/hashtag",
+    "internal/pool",
+    "internal/proto",
+    "internal/singleflight",
+    "internal/util"
+  ]
+  revision = "83fb42932f6145ce52df09860384a4653d2d332a"
+  version = "v6.12.0"
+
+[[projects]]
   name = "github.com/go-sql-driver/mysql"
   packages = ["."]
   revision = "d523deb1b23d913de5bdada721a6071e71283618"
   version = "v1.4.0"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/golang/freetype"
+  packages = [
+    ".",
+    "raster",
+    "truetype"
+  ]
+  revision = "e2365dfdc4a05e4b8299a783240d4a7d5a65d4e4"
+
+[[projects]]
   name = "github.com/golang/protobuf"
   packages = ["proto"]
-  revision = "5a0f697c9ed9d68fef0116532c6e05cfeae00e55"
+  revision = "b4deda0973fb4c70b50d226b1af49f3da59f5265"
+  version = "v1.1.0"
 
 [[projects]]
   branch = "master"
@@ -90,13 +116,14 @@
 [[projects]]
   name = "github.com/mattn/go-isatty"
   packages = ["."]
-  revision = "57fdcb988a5c543893cc61bce354a6e24ab70022"
+  revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
+  version = "v0.0.3"
 
 [[projects]]
   branch = "master"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
-  revision = "bb74f1db0675b241733089d5a1faa5dd8b0ef57b"
+  revision = "f15292f7a699fcc1a38a80977f80a046874ba8ac"
 
 [[projects]]
   name = "github.com/modern-go/concurrent"
@@ -109,6 +136,18 @@
   packages = ["."]
   revision = "4b7aa43c6742a2c18fdef89dd197aaae7dac7ccd"
   version = "1.0.1"
+
+[[projects]]
+  name = "github.com/mojocn/base64Captcha"
+  packages = ["."]
+  revision = "7d0b78ad1685f79a0fea381c107d77ec1f812500"
+  version = "v1.09"
+
+[[projects]]
+  name = "github.com/patrickmn/go-cache"
+  packages = ["."]
+  revision = "a3647f8e31d79543b2d0f0ae2fe5c379d72cedc0"
+  version = "v2.1.0"
 
 [[projects]]
   name = "github.com/pelletier/go-toml"
@@ -158,7 +197,8 @@
 [[projects]]
   name = "github.com/ugorji/go"
   packages = ["codec"]
-  revision = "c88ee250d0221a57af388746f5cf03768c21d6e2"
+  revision = "b4c50a2b199d93b13dc15e78929cfb23bfdf21ab"
+  version = "v1.1.1"
 
 [[projects]]
   branch = "master"
@@ -168,12 +208,21 @@
 
 [[projects]]
   branch = "master"
+  name = "golang.org/x/image"
+  packages = [
+    "font",
+    "math/fixed"
+  ]
+  revision = "c73c2afc3b812cdd6385de5a50616511c4a3d458"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows"
   ]
-  revision = "3c6ecd8f22c6f40fbeec94c000a069d7d87c7624"
+  revision = "ac767d655b305d4e9612f5f6e33120b9176c4ad4"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -197,8 +246,8 @@
 [[projects]]
   name = "gopkg.in/go-playground/validator.v8"
   packages = ["."]
-  revision = "5f57d2222ad794d0dffb07e664ea05e2ee07d60c"
-  version = "v8.18.1"
+  revision = "5f1438d3fca68893a817e4a66806cea46a9e4ebf"
+  version = "v8.18.2"
 
 [[projects]]
   name = "gopkg.in/yaml.v2"
@@ -206,9 +255,15 @@
   revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
   version = "v2.2.1"
 
+[[projects]]
+  name = "ti-ding.com/wangji/gocachemid"
+  packages = ["."]
+  revision = "c14e846bb6e32c89c40b7c0ad9ace552f8e42e97"
+  version = "0.0.4"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "125fb53a76679d4669e1739e77e7ed676f4f37667b884cd8a0807011cb570162"
+  inputs-digest = "dd279a062b52665aba53661829b6968019f8d7497dba95bcf794d0e54d3fbaf6"
   solver-name = "gps-cdcl"
   solver-version = 1
