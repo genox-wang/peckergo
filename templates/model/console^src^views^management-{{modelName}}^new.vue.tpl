@@ -4,7 +4,7 @@
       <!-- TODO -->
       <!-- <Col span="16">
         <FormItem label="昵称" prop="display_name">
-          <Input placeholder="昵称" v-model="form.display_name"></Input>
+          <Input placeholder="昵称" v-model="form.display_name" @on-enter.stop="$refs.base.save()"></Input>
         </FormItem>
       </Col> -->
     </Row>
