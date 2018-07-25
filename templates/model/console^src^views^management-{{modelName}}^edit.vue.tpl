@@ -47,7 +47,7 @@ export default {
         if (data) {
           // TODO
           // 初始化表单数据
-          self.form.id = id;
+          self.form.id = parseInt(id);
         }
       });
     }

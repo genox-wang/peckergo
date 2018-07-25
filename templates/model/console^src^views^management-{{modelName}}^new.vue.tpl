@@ -13,8 +13,12 @@
 
 <script>
 import editBase from '../base/edit-base.vue';
+import vueRouterKeepaliveReset from '@/views/mixins/vue_router_keepalive_reset';
 
 export default {
+  mixins: [
+    vueRouterKeepaliveReset
+  ],
   components: {
     editBase
   },
@@ -35,6 +39,9 @@ export default {
     save () {
       // TODO
       return this.$store.dispatch('create_{{modelName}}', this.form);
+    },
+    reset () {
+      // TODO
     }
   }
 };
