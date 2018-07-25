@@ -36,6 +36,9 @@ export default {
     },
 
     reset () {
+      if (this._rest) {
+        this._rest();
+      }
       this.formatFilters();
       let self = this;
       this.tableLoading = true;

@@ -68,7 +68,10 @@ func Delete{{ModelName}}(id uint) error {
 
 // All{{ModelName}}s 获取所有 {{ModelName}}s
 func All{{ModelName}}s(meta *TableMeta) *Table{{ModelName}} {
-	metaJSON, _ := json.Marshal(meta)
+	countMeta := &TableMeta{
+		Filter: meta.Filter,
+	}
+	metaJSON, _ := json.Marshal(countMeta)
 	countCache, _ := {{modelName}}CountCache.Get(metaJSON)
 	count, _ := strconv.ParseUint(countCache, 10, 64)
 

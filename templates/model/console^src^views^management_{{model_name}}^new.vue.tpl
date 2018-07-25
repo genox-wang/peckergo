@@ -1,5 +1,5 @@
 <template>
-  <edit-base :form="form" :rules="rules" :save-promise="save">
+  <edit-base ref="base" :form="form" :rules="rules" :save-promise="save">
     <Row>
       <!-- TODO -->
       <!-- <Col span="16">
@@ -38,7 +38,7 @@ export default {
   methods: {
     save () {
       // TODO
-      return this.$store.dispatch('create_{{modelName}}', this.form);
+      return this.$store.dispatch('create_{{model_name}}', this.form);
     },
     reset () {
       // TODO

@@ -68,7 +68,7 @@ export default {
   },
   data () {
     return {
-      apiGet: 'get_{{modelName}}s',
+      apiGet: 'get_{{model_name}}s',
       deleteModel: false,
       tableLoading: false,
       dateTimeRange: [],
@@ -122,13 +122,13 @@ export default {
 
     onNew () {
       this.$router.push({
-        name: '{{modelName}}_new'
+        name: '{{model_name}}_new'
       });
     },
 
     onEdit (id) {
       this.$router.push({
-        name: '{{modelName}}_edit',
+        name: '{{model_name}}_edit',
         params: {
           id: id
         }
@@ -146,7 +146,7 @@ export default {
     },
 
     deleteOk () {
-      this.$store.dispatch('delete_{{modelName}}', this.selectedID).then(() => {
+      this.$store.dispatch('delete_{{model_name}}', this.selectedID).then(() => {
         this.$Message.success('删除成功');
         this.reset();
       });

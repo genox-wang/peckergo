@@ -1,3 +1,3 @@
-,{ path: '/management/{{modelName}}s/new', title: '新建{{ModelName}}', name: '{{modelName}}_new', access: [1], component: () => import('@/views/management-{{modelName}}/new.vue') },
-    { path: '/management/{{modelName}}s/:id', title: '编辑{{ModelName}}', name: '{{modelName}}_edit', access: [1], component: () => import('@/views/management-{{modelName}}/edit.vue') }
+,{ path: '/management/{{model_name}}s/new', title: '新建{{ModelName}}', name: '{{model_name}}_new', access: [1], component: () => import('@/views/management_{{model_name}}/new.vue') },
+    { path: '/management/{{model_name}}s/:id', title: '编辑{{ModelName}}', name: '{{model_name}}_edit', access: [1], component: () => import('@/views/management_{{model_name}}/edit.vue') }
     // ph-otherRouter don't remove this line

@@ -51,24 +51,29 @@ type TableOrder struct {
 
 // TablePagination 表单分页
 type TablePagination struct {
-	Page    uint `json:"page"`
-	PerPage uint `json:"size"`
+	Page    int  `json:"page"`
+	PerPage int  `json:"size"`
 	Total   uint `json:"total"`
 }
 
 // WrapMeta 包裹 meta 查询字段
 func WrapMeta(meta TableMeta, db *gorm.DB) *gorm.DB {
-	newDB := WrapPagination(meta.Pagination, db)
+	newDB := WrapFilter(meta.Filter, db)
+	newDB = WrapPagination(meta.Pagination, newDB)
 	newDB = WrapOrder(meta.Order, newDB)
-	newDB = WrapFilter(meta.Filter, newDB)
+
 	return newDB
 }
 
 // WrapPagination 包裹分页查询字段
 func WrapPagination(p TablePagination, db *gorm.DB) *gorm.DB {
-	limit := p.PerPage
-	offset := p.Page * p.PerPage
-	newDB := db.Offset(offset).Limit(limit)
+	newDB := db
+	if p.PerPage != 0 {
+		newDB = newDB.Limit(p.PerPage)
+		if p.Page != -1 {
+			newDB = newDB.Offset(p.PerPage * p.Page)
+		}
+	}
 	return newDB
 }
 
@@ -119,10 +124,10 @@ func TableMetaFromQuery(c *gin.Context, excludeQuerys ...string) *TableMeta {
 		switch key {
 		case "page":
 			page, _ := strconv.ParseInt(c.Query(key), 10, 64)
-			meta.Pagination.Page = uint(page)
+			meta.Pagination.Page = int(page)
 		case "limit":
 			limit, _ := strconv.ParseInt(c.Query(key), 10, 64)
-			meta.Pagination.PerPage = uint(limit)
+			meta.Pagination.PerPage = int(limit)
 		case "order":
 			meta.Order = ParseOrderQuerys(c.QueryArray(key))
 		default:

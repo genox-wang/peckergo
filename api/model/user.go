@@ -108,7 +108,10 @@ func init() {
 
 // AllUsers 获取所有 Users
 func AllUsers(meta *TableMeta) *TableUser {
-	metaJSON, _ := json.Marshal(meta)
+	countMeta := &TableMeta{
+		Filter: meta.Filter,
+	}
+	metaJSON, _ := json.Marshal(countMeta)
 	countCache, _ := userCountCache.Get(metaJSON)
 	count, _ := strconv.ParseUint(countCache, 10, 64)
 
