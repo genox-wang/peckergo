@@ -18,8 +18,8 @@
           :current="current"
           :page-size="pageSize"
           :page-size-opts="[5,10,20]"
-          @on-change="$emit('on-change')"
-          @on-page-size-change="$emit('on-page-size-change')"
+          @on-change="$emit('on-change', arguments[0])"
+          @on-page-size-change="$emit('on-page-size-change', arguments[0])"
           show-total
           show-elevator
           show-sizer
@@ -64,6 +64,8 @@ export default {
           sortable: 'custom'
         }
       ];
+
+      myColumns.push(...this.columns);
 
       if (this.showAction) {
         myColumns.push({
@@ -111,7 +113,6 @@ export default {
           }
         });
       }
-      myColumns.push(...this.columns);
       return myColumns;
     }
   }
