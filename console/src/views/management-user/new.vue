@@ -13,12 +13,12 @@
         </Col>
         <Col span="16">
           <FormItem label="新密码" prop="password">
-            <Input placeholder="新密码" v-model="form.password" @on-enter.stop="$refs.base.save()"></Input>
+            <Input type="password" placeholder="新密码" v-model="form.password" @on-enter.stop="$refs.base.save()"></Input>
           </FormItem>
         </Col>
         <Col span="16">
           <FormItem label="再次输入" prop="confirm">
-            <Input placeholder="再次输入" v-model="form.confirm" @on-enter.stop="$refs.base.save()"></Input>
+            <Input type="password" placeholder="再次输入" v-model="form.confirm" @on-enter.stop="$refs.base.save()"></Input>
           </FormItem>
         </Col>
         <Col span="16">

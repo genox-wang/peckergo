@@ -35,9 +35,13 @@ export default {
       this.filters.push(util.we(fieldName, value));
     },
 
+    fPushGreaterThan (fieldName, value) {
+      this.filters.push(util.wgle(fieldName, value));
+    },
+
     reset () {
-      if (this._rest) {
-        this._rest();
+      if (this._reset) {
+        this._reset();
       }
       this.formatFilters();
       let self = this;
