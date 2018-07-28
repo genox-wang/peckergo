@@ -1,6 +1,6 @@
 # PeckerGo
 
-[](http://p4unhgojt.bkt.clouddn.com/pecker_init.gif)
+![](http://p4unhgojt.bkt.clouddn.com/pecker_init.gif)
 
 ### 简介
 
