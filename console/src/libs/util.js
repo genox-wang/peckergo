@@ -6,7 +6,7 @@ let util = {
 };
 
 util.title = function (title) {
-  title = title || 'console-template';
+  title = title || 'peckergo';
   window.document.title = title;
 };
 

@@ -4,9 +4,9 @@ import (
 
 	// "net/http"
 	// "trans-trip-admin-api/app/config"
-	"console-template/api/controller"
-	"console-template/api/middleware"
-	"console-template/api/model"
+	"peckergo/api/controller"
+	"peckergo/api/middleware"
+	"peckergo/api/model"
 	// "github.com/gin-gonic/gin"
 )
 

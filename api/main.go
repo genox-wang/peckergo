@@ -3,11 +3,11 @@ package main
 import (
 	_ "github.com/go-sql-driver/mysql"
 
-	"console-template/api/config"
-	"console-template/api/model"
-	"console-template/api/router"
-	"console-template/api/utils/json"
-	"console-template/api/utils/log"
+	"peckergo/api/config"
+	"peckergo/api/model"
+	"peckergo/api/router"
+	"peckergo/api/utils/json"
+	"peckergo/api/utils/log"
 )
 
 func main() {

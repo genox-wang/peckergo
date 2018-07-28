@@ -1,10 +1,10 @@
 package middleware
 
 import (
-	"console-template/api/model"
+	"peckergo/api/model"
 	"net/http"
 
-	"console-template/api/utils/log"
+	"peckergo/api/utils/log"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

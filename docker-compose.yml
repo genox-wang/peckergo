@@ -9,14 +9,14 @@ services:
       - mysqllog:/var/log/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: console-template
+      MYSQL_DATABASE: peckergo
     restart: always
 
   api:
     build:
       context: ./
     volumes:
-      - ./console-template:/app/console-template
+      - ./peckergo:/app/peckergo
       - ./api/config/config.yml.prod:/app/api/config/config.yml:ro
       - /usr/local/go/lib/time/zoneinfo.zip:/usr/local/go/lib/time/zoneinfo.zip
     ports:

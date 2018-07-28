@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"console-template/api/model"
-	"console-template/api/utils/log"
+	"peckergo/api/model"
+	"peckergo/api/utils/log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

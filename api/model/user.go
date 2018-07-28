@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"time"
 
-	"console-template/api/utils/json"
-	"console-template/api/utils/log"
+	"peckergo/api/utils/json"
+	"peckergo/api/utils/log"
 
 	cache "ti-ding.com/wangji/gocachemid"
 )

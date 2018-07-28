@@ -4,7 +4,7 @@
 
 ```bash
 // 在 `{$GOPATH}/src/` 目录下下载模板工程到yourApp
-git clone http://git.ti-ding.com/wangji/console-template.git yourApp
+git clone http://git.ti-ding.com/wangji/peckergo.git yourApp
 
 cd yourApp
 

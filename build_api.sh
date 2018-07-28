@@ -16,8 +16,8 @@ dep ensure -v
 
 if [ $? -eq 0 ]; then
   echo "build..."
-  CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o console-template ./api
-  chmod +x console-template
+  CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o peckergo ./api
+  chmod +x peckergo
 else
   echo "dep ensure fail"
   exit 1

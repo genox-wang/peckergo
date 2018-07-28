@@ -1,9 +1,9 @@
 package model
 
 import (
-	"console-template/api/utils/log"
+	"peckergo/api/utils/log"
 
-	"console-template/api/config"
+	"peckergo/api/config"
 
 	"github.com/jinzhu/gorm"
 )

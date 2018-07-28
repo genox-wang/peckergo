@@ -6,4 +6,4 @@ WORKDIR /app
 
 EXPOSE 8000
 
-CMD [ "./console-template" ]
+CMD [ "./peckergo" ]

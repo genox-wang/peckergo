@@ -1,10 +1,10 @@
 package controller
 
 import (
-	"console-template/api/middleware"
-	"console-template/api/model"
-	"console-template/api/utils/json"
-	"console-template/api/utils/log"
+	"peckergo/api/middleware"
+	"peckergo/api/model"
+	"peckergo/api/utils/json"
+	"peckergo/api/utils/log"
 	"net/http"
 	"strconv"
 

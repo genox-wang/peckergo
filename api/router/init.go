@@ -1,10 +1,10 @@
 package router
 
 import (
-	"console-template/api/config"
+	"peckergo/api/config"
 	"fmt"
 
-	"console-template/api/utils/log"
+	"peckergo/api/utils/log"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
