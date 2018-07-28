@@ -72,3 +72,7 @@ cp yourApp
 
 ./build.sh
 ```
+
+### 实践项目
+
+[trans-trip-admin](http://git.ti-ding.com/hastrans/trans-trip-admin)
