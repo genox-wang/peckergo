@@ -1,11 +1,11 @@
 package controller
 
 import (
+	"net/http"
 	"peckergo/api/middleware"
 	"peckergo/api/model"
 	"peckergo/api/utils/json"
 	"peckergo/api/utils/log"
-	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -60,7 +60,7 @@ func LoginPost(c *gin.Context) {
 	}
 
 	json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
-		"msg": "param error!",
+		"msg": "传参数错误!",
 	})
 }
 
@@ -80,7 +80,7 @@ func NewUserPost(c *gin.Context) {
 	}
 
 	json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
-		"msg": "param error!",
+		"msg": "传参数错误!",
 	})
 }
 

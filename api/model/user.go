@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"peckergo/api/datacache"
 	"strconv"
 	"time"
 
@@ -19,6 +20,8 @@ const (
 	RoleAdmin = 1
 	// RoleOperator 操作员角色
 	RoleOperator = 2
+	// Salt 为密码加密加盐
+	Salt = "Salt"
 )
 
 var (
@@ -60,22 +63,36 @@ func Login(m *User) error {
 // NewUser 创建 User
 func NewUser(m *User) error {
 	m.Password = CrptoPassword(m.Password)
+
 	userCountCache.DelWithPrefix("user_")
-	return DB.Create(m).Error
+	err := DB.Create(m).Error
+	if err == nil {
+		datacache.SetPwChangeTime(m.ID, time.Now().Unix())
+	}
+	return err
 }
 
 // SaveUser 更新 User
 func SaveUser(m *User) error {
 	m.Password = CrptoPassword(m.Password)
-	return DB.Model(m).Updates(m).Error
+	err := DB.Model(m).Updates(m).Error
+	if err == nil {
+		datacache.SetPwChangeTime(m.ID, time.Now().Unix())
+	}
+	return err
 }
 
 // DeleteUser 删除 User
 func DeleteUser(id uint) error {
 	m := &User{}
 	m.ID = id
+	datacache.SetPwChangeTime(m.ID, time.Now().Unix())
 	userCountCache.DelWithPrefix("user_")
-	return DB.Delete(m).Error
+	err := DB.Delete(m).Error
+	if err == nil {
+		datacache.DelPwChangeTime(m.ID)
+	}
+	return err
 }
 
 // CrptoPassword crpto password
@@ -83,6 +100,7 @@ func CrptoPassword(password string) string {
 	if password == "" {
 		return ""
 	}
+	password += Salt
 	b := sha1.New()
 	io.WriteString(b, password)
 	return fmt.Sprintf("%x", b.Sum(nil))

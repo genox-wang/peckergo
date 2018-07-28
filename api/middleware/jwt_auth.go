@@ -1,8 +1,10 @@
 package middleware
 
 import (
-	"peckergo/api/model"
 	"net/http"
+	"peckergo/api/datacache"
+	"peckergo/api/model"
+	"time"
 
 	"peckergo/api/utils/log"
 
@@ -20,7 +22,6 @@ func JWTAuthRequired() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		tokenString := c.Request.Header.Get("Authorization")
-		log.Info(tokenString)
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 			return []byte(JwtScretKey), nil
 		})
@@ -35,6 +36,34 @@ func JWTAuthRequired() gin.HandlerFunc {
 
 			u := model.User{}
 
+			if d, ok := claims["id"]; ok {
+				u.ID = uint(d.(float64))
+			} else {
+				c.AbortWithStatus(http.StatusUnauthorized)
+				return
+			}
+
+			var created int64
+			if d, ok := claims["created"]; ok {
+				created = int64(d.(float64))
+			} else {
+				c.AbortWithStatus(http.StatusUnauthorized)
+				return
+			}
+
+			pwChangeTime, err := datacache.GetPwChangeTime(u.ID)
+
+			if err != nil {
+				log.Error(err.Error())
+				c.AbortWithStatus(http.StatusUnauthorized)
+				return
+			}
+
+			if pwChangeTime > created {
+				c.AbortWithStatus(http.StatusUnauthorized)
+				return
+			}
+
 			if d, ok := claims["name"]; ok {
 				u.DisplayName = d.(string)
 			} else {
@@ -44,13 +73,6 @@ func JWTAuthRequired() gin.HandlerFunc {
 
 			if r, ok := claims["role"]; ok {
 				u.Role = int(r.(float64))
-			} else {
-				c.AbortWithStatus(http.StatusUnauthorized)
-				return
-			}
-
-			if d, ok := claims["id"]; ok {
-				u.ID = uint(d.(float64))
 			} else {
 				c.AbortWithStatus(http.StatusUnauthorized)
 				return
@@ -68,14 +90,14 @@ func JWTAuthRequired() gin.HandlerFunc {
 func GetJWTToken(user model.User) (token string) {
 
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"id":   user.ID,
-		"name": user.DisplayName,
-		"role": user.Role,
-		// "exp":  time.Now().Add(time.Minute * 5).Unix(),
-		"exp": 0,
+		"id":      user.ID,
+		"name":    user.DisplayName,
+		"role":    user.Role,
+		"exp":     time.Now().Add(time.Hour * 24 * 7).Unix(), // 令牌有效期为一周
+		"created": time.Now().Unix(),
 	})
 
-	log.Warn(user)
+	// log.Warn(user)
 
 	token, err := t.SignedString([]byte(JwtScretKey))
 	if err != nil {
