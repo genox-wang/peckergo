@@ -1,6 +1,8 @@
 # PeckerGo
 
-![](http://p4unhgojt.bkt.clouddn.com/pecker_init.gif)
+![初始化项目](http://p4unhgojt.bkt.clouddn.com/pecker_init.gif)
+
+![添加 model](http://p4unhgojt.bkt.clouddn.com/pecker_model.gif)
 
 ### 简介
 
@@ -11,14 +13,14 @@
 
 ### 特点
 
-- 提供命令行工具 [pecker]() 初始化项目，自动添加 model 代码
+- 提供命令行工具 [pecker](http://git.ti-ding.com/wangji/pecker) 初始化项目，自动添加 model 代码
 - 后端支持跨域
 - 前后端登陆对接图片验证码支持
 - 用户认证基于 JWT
 
 ### 准备工作
 
-安装 [packer]()
+安装 [packer](http://git.ti-ding.com/wangji/pecker)
 
 ### 使用方法
 
