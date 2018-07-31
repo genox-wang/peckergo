@@ -16,13 +16,13 @@ var (
 	{{modelName}}CountCache *cache.Cache
 )
 
-// {{ModelName}} 用户模型
+// {{ModelName}} {{ModelName}}模型
 type {{ModelName}} struct {
 	Model
 	// TODO
 }
 
-// Table{{ModelName}} 返回表单用户数据模型
+// Table{{ModelName}} 返回表单{{ModelName}}数据模型
 type Table{{ModelName}} struct {
 	Data []*{{ModelName}}    `json:"data"`
 	Meta *TableMeta `json:"meta"`
@@ -48,8 +48,11 @@ func init() {
 
 // New{{ModelName}} 创建 {{ModelName}}
 func New{{ModelName}}(m *{{ModelName}}) error {
-	{{modelName}}CountCache.DelWithPrefix("{{projectName}}_{{modelName}}_")
-	return DB.Create(m).Error
+	err := DB.Create(m).Error
+	if err == nil {
+		{{modelName}}CountCache.DelWithPrefix("{{projectName}}_{{modelName}}_")
+	}
+	return err
 }
 
 // Save{{ModelName}} 更新 {{ModelName}}
@@ -61,8 +64,11 @@ func Save{{ModelName}}(m *{{ModelName}}) error {
 func Delete{{ModelName}}(id uint) error {
 	m := &{{ModelName}}{}
 	m.ID = id
-	{{modelName}}CountCache.DelWithPrefix("{{projectName}}_{{modelName}}_")
-	return DB.Delete(m).Error
+	err := DB.Delete(m).Error
+	if err == nil {
+		{{modelName}}CountCache.DelWithPrefix("{{projectName}}_{{modelName}}_")
+	}
+	return err
 }
 
 

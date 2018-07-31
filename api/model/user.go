@@ -28,7 +28,7 @@ var (
 	userCountCache *cache.Cache
 )
 
-// User 用户模型
+// User User模型
 type User struct {
 	Model
 	DisplayName string `json:"display_name"`
@@ -39,7 +39,7 @@ type User struct {
 	Captcha     string `json:"captcha" gorm:"-"`
 }
 
-// TableUser 返回表单用户数据模型
+// TableUser 返回表单User数据模型
 type TableUser struct {
 	Data []*User    `json:"data"`
 	Meta *TableMeta `json:"meta"`

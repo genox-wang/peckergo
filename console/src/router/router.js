@@ -55,14 +55,14 @@ export const otherRouter = {
 export const appRouter = [
   {
     path: '/management',
-    icon: 'gear-a',
+    icon: 'md-cog',
     name: 'management',
     title: '管理',
     component: Main,
     children: [
       {
         path: 'users',
-        icon: 'person-stalker',
+        icon: 'logo-octocat',
         name: 'users',
         title: '用户',
         access: [1],

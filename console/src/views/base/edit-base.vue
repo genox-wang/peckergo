@@ -4,7 +4,7 @@
       <slot></slot>
     </Form>
     <br>
-    <Button type="primary" @click="save">保存</Button>
+    <Button type="primary" shape="circle" @click="save" ghost>保存</Button>
   </div>
 </template>
 

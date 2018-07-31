@@ -7,7 +7,7 @@
     <div class="login-con">
       <Card :bordered="false">
         <p slot="title">
-          <Icon type="log-in"></Icon>
+          <Icon type="md-log-in"></Icon>
           欢迎登录
         </p>
         <div class="form-con">

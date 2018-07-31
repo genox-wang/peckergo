@@ -80,7 +80,9 @@ export default {
               renders.push(h('Button', {
                 props: {
                   type: 'primary',
-                  size: 'small'
+                  size: 'small',
+                  shape: 'circle',
+                  ghost: true
                 },
                 style: {
                   marginRight: '5px'
@@ -96,7 +98,9 @@ export default {
               renders.push(h('Button', {
                 props: {
                   type: 'error',
-                  size: 'small'
+                  size: 'small',
+                  shape: 'circle',
+                  ghost: true
                 },
                 style: {
                   marginRight: '5px'

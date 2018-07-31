@@ -39,6 +39,17 @@ export default {
       this.filters.push(util.wgle(fieldName, value));
     },
 
+    tableRenderTooltip (h, v, w) {
+      w -= 40;
+      return h('Tooltip', {
+        props: {
+          content: v
+        }
+      }, [h('p', {
+        style: `width: ${w}px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;`
+      }, v)]);
+    },
+
     reset () {
       if (this._reset) {
         this._reset();

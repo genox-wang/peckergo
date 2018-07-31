@@ -10,7 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dayjs": "^1.7.1",
-    "iview": "^2.14.3",
+    "iview": "^3.0.0",
     "js-base64": "^2.4.5",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.10",

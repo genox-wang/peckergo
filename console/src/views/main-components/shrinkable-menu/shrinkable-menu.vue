@@ -10,7 +10,6 @@
             :menu-theme="theme"
             :menu-list="menuList"
             :open-names="openNames"
-            :icon-size="20"
             @on-change="handleChange"
         ></sidebar-menu>
         <sidebar-menu-shrink

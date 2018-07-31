@@ -15,10 +15,10 @@
           </Row>
           <Row>
             <Col span="12">
-              <Button type="success" @click="onNew">新建</Button>
+              <Button type="success"  shape="circle" @click="onNew" ghost>新建</Button>
             </Col>
             <Col span="12">
-              <Button type="primary" style="float: right"  @click="reset">查询</Button>
+              <Button type="primary" shape="circle" icon="ios-search" style="float: right"  @click="reset" ghost></Button>
             </Col>
           </Row>
         </div>
