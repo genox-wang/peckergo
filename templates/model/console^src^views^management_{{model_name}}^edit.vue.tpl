@@ -1,7 +1,7 @@
 <template>
   <edit-base ref="base" :form="form" :rules="rules" :save-promise="save">
     <Row>
-      <!-- TODO -->
+      <!-- TODO  添加表单 html -->
       <!-- <Col span="16">
         <FormItem label="昵称" prop="display_name">
           <Input placeholder="昵称" v-model="form.display_name" @on-enter.stop="$refs.base.save()"></Input>
@@ -25,10 +25,11 @@ export default {
   data () {
     return {
       form: {
-        // TODO
+        // TODO 添加表单字段
       },
       rules: {
-        // TODO
+        // TODO 添加表单验证桂策
+        // https://github.com/yiminghe/async-validator
         // username: [
         //   { required: true, message: '账号不能为空', trigger: 'blur' }
         // ],

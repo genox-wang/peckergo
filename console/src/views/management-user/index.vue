@@ -116,11 +116,12 @@ export default {
           sortable: 'custom',
           render: (h, params) => {
             const roles = ['未知', '管理员', '操作员'];
-            const colors = ['yellow', 'red', 'blue'];
+            const colors = ['warning', 'error', 'primary'];
             let id = params.row.role;
             return h('tag', {
               props: {
-                color: colors[id]
+                color: colors[id],
+                type: 'border'
               }
             }, roles[id]);
           }

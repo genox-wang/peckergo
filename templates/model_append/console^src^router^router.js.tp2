@@ -1,6 +1,6 @@
 ,{
         path: '{{model_name}}s',
-        icon: 'person-stalker',
+        icon: 'logo-octocat',
         name: '{{model_name}}s',
         title: '{{ModelName}}',
         access: [1],
