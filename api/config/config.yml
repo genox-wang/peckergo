@@ -3,8 +3,8 @@ corsEnable: true
 serverPort: 8000
 
 log:
-  # 1 = debug 2 = info 3 = warn 4 = error 5 = fatal 6 = panic
-  logLevel: 1
+  # 0 = Panic 1 = Fatal 2 = Error 3 = Warn 4 = Info 5 = Debug
+  logLevel: 5
 
 router:
   # debug release test

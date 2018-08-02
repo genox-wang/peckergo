@@ -5,8 +5,9 @@ import (
 	"peckergo/api/middleware"
 	"peckergo/api/model"
 	"peckergo/api/utils/json"
-	"peckergo/api/utils/log"
 	"strconv"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mojocn/base64Captcha"

@@ -10,7 +10,8 @@ import (
 	"time"
 
 	"peckergo/api/utils/json"
-	"peckergo/api/utils/log"
+
+	log "github.com/sirupsen/logrus"
 
 	cache "ti-ding.com/wangji/gocachemid"
 )

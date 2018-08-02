@@ -6,7 +6,7 @@ import (
 	"peckergo/api/model"
 	"time"
 
-	"peckergo/api/utils/log"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
