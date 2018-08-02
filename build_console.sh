@@ -17,3 +17,13 @@ else
   echo "npm install fail"
   exit 1
 fi
+
+if [ $? -eq 0 ]; then
+  echo "move dist to /www"
+  rm -rf /www/peckergo
+  mv dist /www/peckergo
+  echo "move complete"
+else
+  echo "move fail"
+  exit 1
+fi
