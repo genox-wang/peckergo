@@ -46,20 +46,14 @@ export default {
   },
   data () {
     const validatePassord = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'));
-      } else {
-        if (this.form.confirm !== '') {
-          // 对第二个密码框单独验证
-          this.$refs.base.$refs.form.validateField('confirm');
-        }
-        callback();
+      if (this.form.confirm !== '') {
+        // 对第二个密码框单独验证
+        this.$refs.base.$refs.form.validateField('confirm');
       }
+      callback();
     };
     const validateConfirm = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'));
-      } else if (value !== this.form.password) {
+      if (value !== this.form.password) {
         callback(new Error('两次输入的密码不一致!'));
       } else {
         callback();
