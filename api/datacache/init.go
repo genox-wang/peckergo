@@ -2,6 +2,7 @@ package datacache
 
 import (
 	"log"
+	"peckergo/api/config"
 	"time"
 
 	"github.com/go-redis/redis"
@@ -12,8 +13,9 @@ var (
 )
 
 func init() {
+	addr := config.GetString("redis.addr")
 	client = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     addr,
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
