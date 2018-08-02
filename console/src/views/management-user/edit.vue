@@ -65,6 +65,7 @@ export default {
         username: '',
         password: '',
         display_name: '',
+        confirm: '',
         role: 0
       },
       rules: {
@@ -89,6 +90,8 @@ export default {
     },
     reset () {
       let self = this;
+      self.form.password = '';
+      self.form.confirm = '';
       this.$store.dispatch('get_user_by_id', this.$route.params.id).then((data) => {
         if (data) {
           self.form.id = data.id;

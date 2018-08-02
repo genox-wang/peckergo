@@ -35,8 +35,12 @@
 
 <script>
 import editBase from '../base/edit-base.vue';
+import vueRouterKeepaliveReset from '@/views/mixins/vue_router_keepalive_reset';
 
 export default {
+  mixins: [
+    vueRouterKeepaliveReset
+  ],
   components: {
     editBase
   },
@@ -65,6 +69,7 @@ export default {
       form: {
         username: '',
         password: '',
+        confirm: '',
         display_name: '',
         role: 1
       },
@@ -87,6 +92,14 @@ export default {
   methods: {
     save () {
       return this.$store.dispatch('create_user', this.form);
+    },
+
+    reset () {
+      this.form.username = '';
+      this.form.password = '';
+      this.form.confirm = '';
+      this.form.display_name = '';
+      this.form.role = 1;
     }
   }
 };
