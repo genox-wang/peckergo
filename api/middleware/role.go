@@ -1,9 +1,10 @@
 package middleware
 
 import (
-	"peckergo/api/model"
-	"peckergo/api/utils/log"
 	"net/http"
+	"peckergo/api/model"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/gin-gonic/gin"
 )

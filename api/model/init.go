@@ -1,7 +1,7 @@
 package model
 
 import (
-	"peckergo/api/utils/log"
+	log "github.com/sirupsen/logrus"
 
 	"peckergo/api/config"
 

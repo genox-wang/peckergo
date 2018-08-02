@@ -1,10 +1,10 @@
 package router
 
 import (
-	"peckergo/api/config"
 	"fmt"
+	"peckergo/api/config"
 
-	"peckergo/api/utils/log"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
