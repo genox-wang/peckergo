@@ -47,7 +47,7 @@
         <tags-page-opened :pageTagsList="pageTagsList"></tags-page-opened>
       </div>
     </div>
-    <div class="single-page-con" :style="{left: shrink?'60px':'200px'}">
+    <div class="single-page-con" :style="{left: shrink?'60px':'200px', overflow: _isMobile() ? 'visible' : 'auto'}">
       <div class="single-page">
         <!-- <keep-alive :include="cachePage"> -->
         <keep-alive>
