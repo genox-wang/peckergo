@@ -1,5 +1,4 @@
 import axios from 'axios';
-import env from '@/../env';
 
 let util = {
 
@@ -10,11 +9,12 @@ util.title = function (title) {
   window.document.title = title;
 };
 
-const ajaxUrl = env === 'development'
-  ? 'http://127.0.0.1:8000'
-  : env === 'production'
-    ? 'http://hastrans.api.happygod.cn/'
-    : 'https://debug.url.com';
+console.log('ENV ', process.env.NODE_ENV);
+
+const apiURLDev = 'http://127.0.0.1:8000';
+const apiURLPro = 'http://hastrans.api.happygod.cn/';
+
+const ajaxUrl = process.env.NODE_ENV === 'development' ? apiURLDev : apiURLPro;
 
 util.ajax = axios.create({
   baseURL: ajaxUrl,
