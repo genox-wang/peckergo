@@ -4,6 +4,6 @@
         name: '{{model_name}}s',
         title: '{{ModelName}}',
         access: [1],
-        component: () => import('@/views/management_{{model_name}}/index.vue')
+        component: () => import('@/views/management-{{model-name}}/index.vue')
       }
       // ph-appRouter don't remove this line
