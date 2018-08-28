@@ -33,13 +33,13 @@ func route() {
 		//ph-router-admin don't remove this line
 	}
 
-	// consoleOperator := router.Group("/console")
-	// consoleOperator.
-	// 	Use(middleware.JWTAuthRequired()).
-	// 	Use(middleware.AuthRoleRequired(model.RoleAdmin, model.RoleOperator))
-	// {
-
-	// }
+	consoleOperator := router.Group("/console")
+	consoleOperator.
+		Use(middleware.JWTAuthRequired()).
+		Use(middleware.AuthRoleRequired(model.RoleAdmin, model.RoleOperator))
+	{
+		//ph-router-operator don't remove this lin
+	}
 
 	// api := router.Group("/api")
 	// {

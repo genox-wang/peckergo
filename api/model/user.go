@@ -5,10 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"peckergo/api/datacache"
 	"strconv"
 	"time"
 
+	"peckergo/api/datacache"
 	"peckergo/api/utils/json"
 
 	log "github.com/sirupsen/logrus"
@@ -66,21 +66,13 @@ func NewUser(m *User) error {
 	m.Password = CrptoPassword(m.Password)
 
 	userCountCache.DelWithPrefix("user_")
-	err := DB.Create(m).Error
-	if err == nil {
-		datacache.SetPwChangeTime(m.ID, time.Now().Unix())
-	}
-	return err
+	return DB.Create(m).Error
 }
 
 // SaveUser 更新 User
 func SaveUser(m *User) error {
 	m.Password = CrptoPassword(m.Password)
-	err := DB.Model(m).Updates(m).Error
-	if err == nil {
-		datacache.SetPwChangeTime(m.ID, time.Now().Unix())
-	}
-	return err
+	return DB.Model(m).Updates(m).Error
 }
 
 // DeleteUser 删除 User
@@ -89,11 +81,7 @@ func DeleteUser(id uint) error {
 	m.ID = id
 	datacache.SetPwChangeTime(m.ID, time.Now().Unix())
 	userCountCache.DelWithPrefix("user_")
-	err := DB.Delete(m).Error
-	if err == nil {
-		datacache.DelPwChangeTime(m.ID)
-	}
-	return err
+	return DB.Delete(m).Error
 }
 
 // CrptoPassword crpto password

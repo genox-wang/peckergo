@@ -3,9 +3,10 @@ package controller
 import (
 	"{{projectName}}/api/model"
 	"{{projectName}}/api/utils/json"
-	"{{projectName}}/api/utils/log"
 	"net/http"
 	"strconv"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/gin-gonic/gin"
 )
@@ -82,3 +83,10 @@ func {{ModelName}}Delete(c *gin.Context) {
 
 	json.WriteGinJSON(c, http.StatusOK, gin.H{})
 }
+
+// All{{ModelName}}IDNameMapGet 获得所有 {{ModelName}} ID-Name 映射
+func All{{ModelName}}IDNameMapGet(c *gin.Context) {
+	mMap := model.All{{ModelName}}IDNameMap()
+	json.WriteGinJSON(c, http.StatusOK, mMap)
+}
+

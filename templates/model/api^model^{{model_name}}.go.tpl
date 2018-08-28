@@ -6,7 +6,8 @@ import (
 	"time"
 
 	"{{projectName}}/api/utils/json"
-	"{{projectName}}/api/utils/log"
+	
+	log "github.com/sirupsen/logrus"
 
 	cache "ti-ding.com/wangji/gocachemid"
 )
@@ -96,4 +97,18 @@ func {{ModelName}}ByID(id uint) *{{ModelName}} {
 	var m {{ModelName}}
 	DB.Where("id = ?", id).First(&m)
 	return &m
+}
+
+
+// All{{ModelName}}IDNameMap 获取所有 Server ID-Name 映射
+func All{{ModelName}}IDNameMap() map[uint]string {
+	var ms []*{{ModelName}}
+	if DB.Select("id, name").Find(&ms).Error != nil {
+		return map[uint]string{}
+	}
+	mMap := make(map[uint]string, 0)
+	for _, m := range ms {
+		mMap[m.ID] = m.Name
+	}
+	return mMap
 }

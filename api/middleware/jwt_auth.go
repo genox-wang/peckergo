@@ -56,8 +56,9 @@ func JWTAuthRequired() gin.HandlerFunc {
 
 			if err != nil {
 				log.Error(err.Error())
-				c.AbortWithStatus(http.StatusUnauthorized)
-				return
+				pwChangeTime = 0
+				// c.AbortWithStatus(http.StatusUnauthorized)
+				// return
 			}
 
 			if pwChangeTime > created {
