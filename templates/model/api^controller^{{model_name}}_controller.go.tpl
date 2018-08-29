@@ -33,13 +33,13 @@ func New{{ModelName}}Post(c *gin.Context) {
 
 // All{{ModelName}}sGet get all {{modelName}}
 func All{{ModelName}}sGet(c *gin.Context) {
-	// TODO_NoSharding
+	// TODO 分表注释下面两行代码
 	meta := model.TableMetaFromQuery(c)
 	json.WriteGinJSON(c, http.StatusOK, model.All{{ModelName}}s(meta))
-	// TODO_Sharding
+	// TODO 分表取消注释下面三行代码
 	// meta := model.TableMetaFromQuery(c, "suffix")
 	// suffix := c.Query("suffix")
-	// json.WriteGinJSON(c, http.StatusOK, model.AllLogAuthRequests(meta, suffix))
+	// json.WriteGinJSON(c, http.StatusOK, model.All{{ModelName}}s(meta, suffix))
 
 }
 
@@ -90,7 +90,7 @@ func {{ModelName}}Delete(c *gin.Context) {
 	json.WriteGinJSON(c, http.StatusOK, gin.H{})
 }
 
-// TODO_IDNameMap
+// TODO 为前端暴露 ID-Name 映射
 // All{{ModelName}}IDNameMapGet 获得所有 {{ModelName}} ID-Name 映射
 // func All{{ModelName}}IDNameMapGet(c *gin.Context) {
 //	 mMap := model.All{{ModelName}}IDNameMap()

@@ -12,6 +12,10 @@ import (
 	cache "ti-ding.com/wangji/gocachemid"
 )
 
+const (
+	cntPrefix = "{{projectName}}_{{model_name}}_cnt_"
+)
+
 var (
 	{{modelName}}CountCache *cache.Cache
 )
@@ -19,10 +23,10 @@ var (
 // {{ModelName}} {{ModelName}}模型
 type {{ModelName}} struct {
 	Model
-	// TODO
+	// TODO 添加模型必要字段
 }
 
-// TODO_Sharding
+// TODO 分表取消下面方法注释
 // TableName 设置表名
 // func (m {{ModelName}}) TableName() string {
 // 	loc, err := time.LoadLocation("Asia/Chongqing")
@@ -44,7 +48,7 @@ type Table{{ModelName}} struct {
 }
 
 func init() {
-	{{modelName}}CountCache = cache.NewCache(&cache.ClientGoCache{}, "{{modelName}}_", func(fs ...string) string {
+	{{modelName}}CountCache = cache.NewCache(&cache.ClientGoCache{}, cntPrefix, func(fs ...string) string {
 		if len(fs) < 1 {
 			return "0"
 		}
@@ -65,7 +69,7 @@ func init() {
 func New{{ModelName}}(m *{{ModelName}}) error {
 	err := DB.Create(m).Error
 	if err == nil {
-		{{modelName}}CountCache.DelWithPrefix("{{projectName}}_{{modelName}}_")
+		{{modelName}}CountCache.DelWithPrefix(cntPrefix)
 	}
 	return err
 }
@@ -81,7 +85,7 @@ func Delete{{ModelName}}(id uint) error {
 	m.ID = id
 	err := DB.Delete(m).Error
 	if err == nil {
-		{{modelName}}CountCache.DelWithPrefix("{{projectName}}_{{modelName}}_")
+		{{modelName}}CountCache.DelWithPrefix(cntPrefix)
 	}
 	return err
 }
@@ -89,7 +93,7 @@ func Delete{{ModelName}}(id uint) error {
 
 // All{{ModelName}}s 获取所有 {{ModelName}}s
 func All{{ModelName}}s(meta *TableMeta) *Table{{ModelName}} {
-// 分表
+// TODO 分表注释上行代码，取消注释下行代码
 //func All{{ModelName}}s(meta *TableMeta, suffix string) *Table{{ModelName}} {
 	countMeta := &TableMeta{
 		Filter: meta.Filter,
@@ -100,10 +104,10 @@ func All{{ModelName}}s(meta *TableMeta) *Table{{ModelName}} {
 
 	newDB := WrapMeta(*meta, DB)
 	{{modelName}}s := make([]*{{ModelName}}, 0)
-	// TODO_NoSharding
+	// TODO 分表注释下行代码
 	newDB.Find(&{{modelName}}s)
-	// TODO_Sharding
-	//newDB.Table(fmt.Sprintf("sdk_requests_%s", suffix)).Find(&logAuthRequests)
+	// TODO 分表取消注释下行代码
+	//newDB.Table(fmt.Sprintf("{{model_name}}s_%s", suffix)).Find(&{{modelName}}s)
 	meta.Pagination.Total = uint(count)
 	return &Table{{ModelName}}{
 		Data: {{modelName}}s,
@@ -118,7 +122,7 @@ func {{ModelName}}ByID(id uint) *{{ModelName}} {
 	return &m
 }
 
-// TODO_IDNameMap
+// TODO 为前端暴露 ID-Name 映射
 // All{{ModelName}}IDNameMap 获取所有 Server ID-Name 映射
 // func All{{ModelName}}IDNameMap() map[uint]string {
 // 	 var ms []*{{ModelName}}

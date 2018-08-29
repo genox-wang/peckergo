@@ -6,13 +6,13 @@
         <div slot="content">
           <Row>
             <Form :label-width="80">
-              <!-- TODO_NoSharding -->
+              <!-- TODO 分表注释以下 -->
               <Col span="8">
                 <FormItem label="创建时间">
                   <DatePicker v-model="dateTimeRange" type="datetimerange" format="yyyy-MM-dd HH:mm" placeholder="创建时间" style="width: 260px"></DatePicker>
                 </FormItem>
               </Col>
-              <!-- TODO_Sharding
+              <!-- TODO 分表取消注释
               <Col span="8">
                  <FormItem label="日期">
                    <DatePicker  v-model="date" type="date" placeholder="日期"></DatePicker>
@@ -84,8 +84,9 @@ export default {
       apiGet: 'get_{{model_name}}s',
       deleteModel: false,
       tableLoading: false,
-      dateTimeRange: [], // 不分表
-      // 分表
+      // TODO 分表注释下行
+      dateTimeRange: [], 
+      // TODO 分表取消注释下面两行
       // date: '',
       // time: [],
       selectedID: 0,
@@ -97,7 +98,7 @@ export default {
       items: [],
       orders: [],
       columns: [
-        // TODO
+        // TODO 为 table 组件添加列映射
         {
           title: '创建时间',
           key: 'created_at',
@@ -158,8 +159,9 @@ export default {
 
     formatFilters () {
       this.filters = [];
-      this.fPushTimeRange('created_at', this.dateTimeRange); // 不分表
-      // TODO_Sharding
+      // TODO 分表注释下行
+      this.fPushTimeRange('created_at', this.dateTimeRange);
+      // TODO 分表取消以下注释
       // let date = this.date ? this.$d(this.date) : this.$d();
       // let timeRange = [];
       // if (this.time[0]) {

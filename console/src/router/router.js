@@ -46,7 +46,7 @@ export const otherRouter = {
   children: [
     { path: 'home', title: '首页', name: 'home_index', component: () => import('@/views/home/home.vue') },
     { path: '/management/users/new', title: '新建用户', name: 'user_new', access: [1], component: () => import('@/views/management-user/new.vue') },
-    { path: '/management/users/:id', title: '编辑用户', name: 'user_edit', access: [1], component: () => import('@/views/management-user/edit.vue') }
+    { path: '/management/users/:id', title: '编辑用户', name: 'user_edit', access: [1], component: () => import('@/views/management-user/edit.vue') },
     // ph-otherRouter don't remove this line
   ]
 };
@@ -67,7 +67,7 @@ export const appRouter = [
         title: '用户',
         access: [1],
         component: () => import('@/views/management-user/index.vue')
-      }
+      },
       // ph-appRouter don't remove this line
     ]
   }

@@ -28,7 +28,7 @@ export default {
         // TODO 添加表单字段
       },
       rules: {
-        // TODO 添加表单验证桂策
+        // TODO 添加表单验证策略
         // https://github.com/yiminghe/async-validator
         // username: [
         //   { required: true, message: '账号不能为空', trigger: 'blur' }
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     save () {
-      // TODO
+      // TODO 保存前给表单数据进行处理
       return this.$store.dispatch('update_{{model_name}}', this.form);
     },
     reset () {
@@ -46,8 +46,7 @@ export default {
       let id = self.$route.params.id;
       this.$store.dispatch('get_{{model_name}}_by_id', this.$route.params.id).then((data) => {
         if (data) {
-          // TODO
-          // 初始化表单数据
+          // TODO 初始化表单数据 如 self.form.name = data.name;
           self.form.id = parseInt(id);
         }
       });

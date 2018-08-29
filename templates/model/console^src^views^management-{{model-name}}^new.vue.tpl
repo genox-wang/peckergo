@@ -28,7 +28,7 @@ export default {
         // TODO 添加表单字段
       },
       rules: {
-        // TODO 添加表单验证规则 
+        // TODO 添加表单验证策略
         // https://github.com/yiminghe/async-validator
         // username: [
         //   { required: true, message: '账号不能为空', trigger: 'blur' }
@@ -38,11 +38,11 @@ export default {
   },
   methods: {
     save () {
-      // TODO
+      // TODO 保存前对表单数据进行处理
       return this.$store.dispatch('create_{{model_name}}', this.form);
     },
     reset () {
-      // TODO
+      // TODO 清空表单数据 如 this.form.name = '';
     }
   }
 };

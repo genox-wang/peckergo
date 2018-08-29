@@ -21,7 +21,7 @@ const store = new Vuex.Store({
     app,
     user
     // ph-store-index-modules don't remove this line
-  }
+  },
 });
 
 export default store;

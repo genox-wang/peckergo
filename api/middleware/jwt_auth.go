@@ -14,7 +14,7 @@ import (
 
 const (
 	//JwtScretKey jwt secret key.
-	// TODO 修改密钥
+	// TODO 认证密钥修改，多个网站使用同一个密钥令牌夸网站使用，不安全
 	JwtScretKey = "JWT_SCRET_KEY"
 )
 
