@@ -33,8 +33,14 @@ func New{{ModelName}}Post(c *gin.Context) {
 
 // All{{ModelName}}sGet get all {{modelName}}
 func All{{ModelName}}sGet(c *gin.Context) {
+	// 不分表
 	meta := model.TableMetaFromQuery(c)
 	json.WriteGinJSON(c, http.StatusOK, model.All{{ModelName}}s(meta))
+	// 分表
+	// meta := model.TableMetaFromQuery(c, "suffix")
+	// suffix := c.Query("suffix")
+	// json.WriteGinJSON(c, http.StatusOK, model.AllLogAuthRequests(meta, suffix))
+
 }
 
 // {{ModelName}}ByIDGet get {{modelName}} by id

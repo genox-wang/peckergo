@@ -6,11 +6,24 @@
         <div slot="content">
           <Row>
             <Form :label-width="80">
+              <!-- 不分表 -->
               <Col span="8">
                 <FormItem label="创建时间">
                   <DatePicker v-model="dateTimeRange" type="datetimerange" format="yyyy-MM-dd HH:mm" placeholder="创建时间" style="width: 260px"></DatePicker>
                 </FormItem>
               </Col>
+              <!-- 分表
+              <Col span="8">
+                 <FormItem label="日期">
+                   <DatePicker  v-model="date" type="date" placeholder="日期"></DatePicker>
+                 </FormItem>
+              </Col>
+              <Col span="8">
+                 <FormItem label="时间">
+                   <TimePicker v-model="time" type="timerange" placeholder="时间"></TimePicker>
+                </FormItem>
+              </Col>
+              -->
             </Form>
           </Row>
           <Row>
@@ -71,7 +84,10 @@ export default {
       apiGet: 'get_{{model_name}}s',
       deleteModel: false,
       tableLoading: false,
-      dateTimeRange: [],
+      dateTimeRange: [], // 不分表
+      // 分表
+      // date: '',
+      // time: [],
       selectedID: 0,
       pagination: {
         total: 0,
@@ -142,7 +158,17 @@ export default {
 
     formatFilters () {
       this.filters = [];
-      this.fPushTimeRange('created_at', this.dateTimeRange);
+      this.fPushTimeRange('created_at', this.dateTimeRange); // 不分表
+      // 分表
+      // let date = this.date ? this.$d(this.date) : this.$d();
+      // let timeRange = [];
+      // if (this.time[0]) {
+      //  timeRange[0] = this.$d(date.format('YYYY-MM-DD') + ' ' + this.time[0]);
+      //  timeRange[1] = this.$d(date.format('YYYY-MM-DD') + ' ' + this.time[1]);
+      // }
+      // this.filters.push('suffix=' + date.format('YYMMDD'));
+      // this.fPushTimeRange('created_at', timeRange);
+
     },
 
     deleteOk () {

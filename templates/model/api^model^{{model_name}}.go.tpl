@@ -23,6 +23,21 @@ type {{ModelName}} struct {
 	// TODO
 }
 
+// 分表
+// TableName 设置表名
+func (m {{ModelName}}) TableName() string {
+	loc, err := time.LoadLocation("Asia/Chongqing")
+	now := time.Now()
+	if err == nil {
+		now = now.In(loc)
+	} else {
+		log.Error("{{ModelName}} TableName: ", err.Error())
+	}
+	day := now.Format("060102")
+	return "{{model_name}}s_" + day
+}
+
+
 // Table{{ModelName}} 返回表单{{ModelName}}数据模型
 type Table{{ModelName}} struct {
 	Data []*{{ModelName}}    `json:"data"`
@@ -75,6 +90,8 @@ func Delete{{ModelName}}(id uint) error {
 
 // All{{ModelName}}s 获取所有 {{ModelName}}s
 func All{{ModelName}}s(meta *TableMeta) *Table{{ModelName}} {
+// 分表
+//func All{{ModelName}}s(meta *TableMeta, suffix string) *Table{{ModelName}} {
 	countMeta := &TableMeta{
 		Filter: meta.Filter,
 	}
@@ -84,7 +101,10 @@ func All{{ModelName}}s(meta *TableMeta) *Table{{ModelName}} {
 
 	newDB := WrapMeta(*meta, DB)
 	{{modelName}}s := make([]*{{ModelName}}, 0)
+	// 不分表
 	newDB.Find(&{{modelName}}s)
+	// 分表
+	//newDB.Table(fmt.Sprintf("sdk_requests_%s", suffix)).Find(&logAuthRequests)
 	meta.Pagination.Total = uint(count)
 	return &Table{{ModelName}}{
 		Data: {{modelName}}s,
