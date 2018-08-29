@@ -12,7 +12,6 @@ import (
 	cache "ti-ding.com/wangji/gocachemid"
 )
 
-
 var (
 	{{modelName}}CountCache *cache.Cache
 )
@@ -23,19 +22,19 @@ type {{ModelName}} struct {
 	// TODO
 }
 
-// 分表
+// TODO_Sharding
 // TableName 设置表名
-func (m {{ModelName}}) TableName() string {
-	loc, err := time.LoadLocation("Asia/Chongqing")
-	now := time.Now()
-	if err == nil {
-		now = now.In(loc)
-	} else {
-		log.Error("{{ModelName}} TableName: ", err.Error())
-	}
-	day := now.Format("060102")
-	return "{{model_name}}s_" + day
-}
+// func (m {{ModelName}}) TableName() string {
+// 	loc, err := time.LoadLocation("Asia/Chongqing")
+// 	now := time.Now()
+// 	if err == nil {
+//		now = now.In(loc)
+// 	} else {
+// 		log.Error("{{ModelName}} TableName: ", err.Error())
+// 	}
+//	day := now.Format("060102")
+//	return "{{model_name}}s_" + day
+// }
 
 
 // Table{{ModelName}} 返回表单{{ModelName}}数据模型
@@ -101,9 +100,9 @@ func All{{ModelName}}s(meta *TableMeta) *Table{{ModelName}} {
 
 	newDB := WrapMeta(*meta, DB)
 	{{modelName}}s := make([]*{{ModelName}}, 0)
-	// 不分表
+	// TODO_NoSharding
 	newDB.Find(&{{modelName}}s)
-	// 分表
+	// TODO_Sharding
 	//newDB.Table(fmt.Sprintf("sdk_requests_%s", suffix)).Find(&logAuthRequests)
 	meta.Pagination.Total = uint(count)
 	return &Table{{ModelName}}{
@@ -119,16 +118,16 @@ func {{ModelName}}ByID(id uint) *{{ModelName}} {
 	return &m
 }
 
-
+// TODO_IDNameMap
 // All{{ModelName}}IDNameMap 获取所有 Server ID-Name 映射
-func All{{ModelName}}IDNameMap() map[uint]string {
-	var ms []*{{ModelName}}
-	if DB.Select("id, name").Find(&ms).Error != nil {
-		return map[uint]string{}
-	}
-	mMap := make(map[uint]string, 0)
-	for _, m := range ms {
-		mMap[m.ID] = m.Name
-	}
-	return mMap
-}
+// func All{{ModelName}}IDNameMap() map[uint]string {
+// 	 var ms []*{{ModelName}}
+// 	 if DB.Select("id, name").Find(&ms).Error != nil {
+// 		 return map[uint]string{}
+// 	 }
+// 	 mMap := make(map[uint]string, 0)
+// 	 for _, m := range ms {
+// 	 	 mMap[m.ID] = m.Name
+// 	 }
+//	 return mMap
+// }

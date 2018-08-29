@@ -4,7 +4,8 @@ let ajax = util.ajax;
 
 const {{modelName}} = {
   state: {
-    idNameMap: {}
+    // TODO_IDNameMap
+    // idNameMap: {}
   },
 
   getters: {
@@ -40,12 +41,13 @@ const {{modelName}} = {
         return resp.data;
       }),
     
-    get_{{model_name}}_id_name_map: ({
-      commit
-    }) => ajax.get('/console/map/{{model_name}}s/')
-      .then((resp) => {
-        commit('SET_{{MODEL_NAME}}_ID_NAME_MAP', resp.data);
-      })
+    // TODO_IDNameMap
+    // get_{{model_name}}_id_name_map: ({
+    //   commit
+    // }) => ajax.get('/console/map/{{model_name}}s/')
+    //   .then((resp) => {
+    //     commit('SET_{{MODEL_NAME}}_ID_NAME_MAP', resp.data);
+    //  })
 
   },
 

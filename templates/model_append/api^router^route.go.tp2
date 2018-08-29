@@ -1,2 +1,2 @@
 consoleOperator.GET("/map/{{model_name}}s/", controller.All{{ModelName}}IDNameMapGet)
-    //ph-router-operator don't remove this lin
+    //ph-router-operator don't remove this line

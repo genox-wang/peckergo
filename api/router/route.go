@@ -38,7 +38,7 @@ func route() {
 		Use(middleware.JWTAuthRequired()).
 		Use(middleware.AuthRoleRequired(model.RoleAdmin, model.RoleOperator))
 	{
-		//ph-router-operator don't remove this lin
+		//ph-router-operator don't remove this line
 	}
 
 	// api := router.Group("/api")

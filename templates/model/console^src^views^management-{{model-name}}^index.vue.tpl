@@ -6,13 +6,13 @@
         <div slot="content">
           <Row>
             <Form :label-width="80">
-              <!-- 不分表 -->
+              <!-- TODO_NoSharding -->
               <Col span="8">
                 <FormItem label="创建时间">
                   <DatePicker v-model="dateTimeRange" type="datetimerange" format="yyyy-MM-dd HH:mm" placeholder="创建时间" style="width: 260px"></DatePicker>
                 </FormItem>
               </Col>
-              <!-- 分表
+              <!-- TODO_Sharding
               <Col span="8">
                  <FormItem label="日期">
                    <DatePicker  v-model="date" type="date" placeholder="日期"></DatePicker>
@@ -159,7 +159,7 @@ export default {
     formatFilters () {
       this.filters = [];
       this.fPushTimeRange('created_at', this.dateTimeRange); // 不分表
-      // 分表
+      // TODO_Sharding
       // let date = this.date ? this.$d(this.date) : this.$d();
       // let timeRange = [];
       // if (this.time[0]) {
@@ -168,7 +168,6 @@ export default {
       // }
       // this.filters.push('suffix=' + date.format('YYMMDD'));
       // this.fPushTimeRange('created_at', timeRange);
-
     },
 
     deleteOk () {
