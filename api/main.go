@@ -8,25 +8,17 @@ import (
 	"peckergo/api/router"
 	"peckergo/api/utils/json"
 
-	log "github.com/sirupsen/logrus"
+	"peckergo/api/utils/logutils"
 )
 
 func main() {
-	initLog()
+	// 崩溃抓取
+	defer logutils.PanicRecover()
+	// 初始化日志
+	logutils.Init()
 	json.InitJSON(json.NewJSONiter())
 	model.OpenDB()
 	defer model.CloseDB()
 	port := config.GetInt("serverPort")
 	router.Run(port)
-}
-
-func initLog() {
-	level := log.Level(config.GetInt("log.logLevel"))
-	log.SetLevel(level)
-	log.SetFormatter(&log.TextFormatter{
-		ForceColors:     true,
-		FullTimestamp:   true,
-		TimestampFormat: "2006-01-02 15:04:05",
-	})
-	log.Warnf("logLevel: [%+v]", level)
 }

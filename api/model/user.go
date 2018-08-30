@@ -96,20 +96,20 @@ func CrptoPassword(password string) string {
 }
 
 func init() {
-	userCountCache = cache.NewCache(&cache.ClientGoCache{}, "user_", func(fs ...string) string {
+	userCountCache = cache.NewCache(&cache.ClientGoCache{}, "user_", func(fs ...string) (string, error) {
 		if len(fs) < 1 {
-			return "0"
+			return "0", errors.New("len(fs) < 1")
 		}
 		var meta *TableMeta
 		err := json.Unmarshal(fs[0], &meta)
 		if err != nil {
 			log.Error(err.Error())
-			return "0"
+			return "0", errors.New(err.Error())
 		}
 		newDB := WrapMeta(*meta, DB)
 		var count uint
 		newDB.Model(User{}).Count(&count)
-		return fmt.Sprintf("%d", count)
+		return fmt.Sprintf("%d", count), nil
 	}, time.Minute*5, true)
 }
 

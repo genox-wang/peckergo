@@ -1,0 +1,134 @@
+hash: fa127d91143ec2b766942457e086bed89c3fc31e8e1dc83a7bf6612799dce69b
+updated: 2018-08-30T17:10:06.587785+08:00
+imports:
+- name: github.com/dgrijalva/jwt-go
+  version: 06ea1031745cb8b3dab3f6a236daf2b0aa468b7e
+- name: github.com/fsnotify/fsnotify
+  version: c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9
+- name: github.com/gin-contrib/cors
+  version: cf4846e6a636a76237a28d9286f163c132e841bc
+- name: github.com/gin-contrib/sse
+  version: 22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae
+- name: github.com/gin-gonic/gin
+  version: b869fe1415e4b9eb52f247441830d502aece2d4d
+  subpackages:
+  - binding
+  - json
+  - render
+- name: github.com/go-redis/redis
+  version: 480db94d33e6088e08d628833b6c0705451d24bb
+  subpackages:
+  - internal
+  - internal/consistenthash
+  - internal/hashtag
+  - internal/pool
+  - internal/proto
+  - internal/singleflight
+  - internal/util
+- name: github.com/go-sql-driver/mysql
+  version: d523deb1b23d913de5bdada721a6071e71283618
+- name: github.com/golang/freetype
+  version: e2365dfdc4a05e4b8299a783240d4a7d5a65d4e4
+  subpackages:
+  - raster
+  - truetype
+- name: github.com/golang/protobuf
+  version: bbd03ef6da3a115852eaf24c8a1c46aeb39aa175
+  subpackages:
+  - proto
+- name: github.com/hashicorp/hcl
+  version: 23c074d0eceb2b8a5bfdbb271ab780cde70f05a8
+  subpackages:
+  - hcl/ast
+  - hcl/parser
+  - hcl/printer
+  - hcl/scanner
+  - hcl/strconv
+  - hcl/token
+  - json/parser
+  - json/scanner
+  - json/token
+- name: github.com/jinzhu/gorm
+  version: 6ed508ec6a4ecb3531899a69cbc746ccf65a4166
+- name: github.com/jinzhu/inflection
+  version: 04140366298a54a039076d798123ffa108fff46c
+- name: github.com/json-iterator/go
+  version: 1624edc4454b8682399def8740d46db5e4362ba4
+- name: github.com/magiconair/properties
+  version: 2c9e9502788518c97fe44e8955cd069417ee89df
+- name: github.com/mattn/go-isatty
+  version: 6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c
+- name: github.com/mitchellh/mapstructure
+  version: 00c29f56e2386353d58c599509e8dc3801b0d716
+- name: github.com/modern-go/concurrent
+  version: bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94
+- name: github.com/modern-go/reflect2
+  version: 58118c1ea9161250907268a484af4dd6ed314280
+- name: github.com/mojocn/base64Captcha
+  version: 7d0b78ad1685f79a0fea381c107d77ec1f812500
+- name: github.com/multiplay/go-slack
+  version: 6f89412cdb8cc2c5d6e58ff736b97d82a86d25d5
+  subpackages:
+  - chat
+  - lrhook
+  - webhook
+- name: github.com/patrickmn/go-cache
+  version: a3647f8e31d79543b2d0f0ae2fe5c379d72cedc0
+- name: github.com/pelletier/go-toml
+  version: 05bcc0fb0d3e60da4b8dd5bd7e0ea563eb4ca943
+- name: github.com/sirupsen/logrus
+  version: 3e01752db0189b9157070a0e1668a620f9a85da2
+- name: github.com/spf13/afero
+  version: bbf41cb36dffe15dff5bf7e18c447801e7ffe163
+  subpackages:
+  - mem
+- name: github.com/spf13/cast
+  version: 8965335b8c7107321228e3e3702cab9832751bac
+- name: github.com/spf13/jwalterweatherman
+  version: 7c0cea34c8ece3fbeb2b27ab9b59511d360fb394
+- name: github.com/spf13/pflag
+  version: ee5fd03fd6acfd43e44aea0b4135958546ed8e73
+- name: github.com/spf13/viper
+  version: 907c19d40d9a6c9bb55f040ff4ae45271a4754b9
+- name: github.com/ugorji/go
+  version: 02537d3a3e32ef636a53519265d211bd208ca488
+  subpackages:
+  - codec
+- name: golang.org/x/crypto
+  version: c4a91bd4f524f10d064139674cf55852e055ad01
+  subpackages:
+  - ssh/terminal
+- name: golang.org/x/image
+  version: c73c2afc3b812cdd6385de5a50616511c4a3d458
+  subpackages:
+  - font
+  - math/fixed
+- name: golang.org/x/net
+  version: f9ce57c11b242f0f1599cf25c89d8cb02c45295a
+  subpackages:
+  - context
+- name: golang.org/x/sys
+  version: 8c0ece68c28377f4c326d85b94f8df0dace46f80
+  subpackages:
+  - unix
+  - windows
+- name: golang.org/x/text
+  version: f21a4dfb5e38f5895301dc265a8def02365cc3d0
+  subpackages:
+  - transform
+  - unicode/norm
+- name: golang.org/x/time
+  version: fbb02b2291d28baffd63558aa44b4b56f178d650
+  subpackages:
+  - rate
+- name: google.golang.org/appengine
+  version: b1f26356af11148e710935ed1ac8a7f5702c7612
+  subpackages:
+  - cloudsql
+- name: gopkg.in/go-playground/validator.v8
+  version: 5f1438d3fca68893a817e4a66806cea46a9e4ebf
+- name: gopkg.in/yaml.v2
+  version: 7f97868eec74b32b0982dd158a51a446d1da7eb5
+- name: ti-ding.com/wangji/gocachemid
+  version: 79f68cd694ab566e8abd8c19a1fbad18d72aebfc
+testImports: []

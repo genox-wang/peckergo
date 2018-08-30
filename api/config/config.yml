@@ -21,3 +21,8 @@ redis:
 admin:
   userName: "admin"
   password: "admin"
+
+slack:
+  enabled: true
+  channel: "#peckergo"
+  key: "TC43M8257/BC4G2E36X/lpOiyrBUF0BIyeEB6EqWaidK"

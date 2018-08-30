@@ -1,0 +1,18 @@
+package: peckergo
+import:
+- package: github.com/dgrijalva/jwt-go
+- package: github.com/gin-contrib/cors
+- package: github.com/gin-gonic/gin
+  subpackages:
+  - binding
+- package: github.com/go-redis/redis
+- package: github.com/go-sql-driver/mysql
+- package: github.com/jinzhu/gorm
+- package: github.com/json-iterator/go
+- package: github.com/mojocn/base64Captcha
+- package: github.com/sirupsen/logrus
+- package: github.com/spf13/viper
+- package: ti-ding.com/wangji/gocachemid
+- package: github.com/multiplay/go-slack
+  subpackages:
+  - lrhook
