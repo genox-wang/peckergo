@@ -2,7 +2,7 @@ package controller
 
 import (
 	"{{projectName}}/api/model"
-	"{{projectName}}/api/utils/json"
+	ginutils "{{projectName}}/api/utils/gin"
 	"net/http"
 	"strconv"
 
@@ -15,18 +15,18 @@ import (
 func New{{ModelName}}Post(c *gin.Context) {
 	var {{modelName}} model.{{ModelName}}
 
-	if err := json.BindGinJSON(c, &{{modelName}}); err == nil {
+	if err := ginutils.BindGinJSON(c, &{{modelName}}); err == nil {
 		if err := model.New{{ModelName}}(&{{modelName}}); err == nil {
-			json.WriteGinJSON(c, http.StatusOK, gin.H{})
+			ginutils.WriteGinJSON(c, http.StatusOK, gin.H{})
 		} else {
-			json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
+			ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 				"msg": err.Error(),
 			})
 		}
 		return
 	}
 
-	json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
+	ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 		"msg": "param error!",
 	})
 }
@@ -35,11 +35,11 @@ func New{{ModelName}}Post(c *gin.Context) {
 func All{{ModelName}}sGet(c *gin.Context) {
 	// TODO 分表注释下面两行代码
 	meta := model.TableMetaFromQuery(c)
-	json.WriteGinJSON(c, http.StatusOK, model.All{{ModelName}}s(meta))
+	ginutils.WriteGinJSON(c, http.StatusOK, model.All{{ModelName}}s(meta))
 	// TODO 分表取消注释下面三行代码
 	// meta := model.TableMetaFromQuery(c, "suffix")
 	// suffix := c.Query("suffix")
-	// json.WriteGinJSON(c, http.StatusOK, model.All{{ModelName}}s(meta, suffix))
+	// ginutils.WriteGinJSON(c, http.StatusOK, model.All{{ModelName}}s(meta, suffix))
 
 }
 
@@ -48,7 +48,7 @@ func {{ModelName}}ByIDGet(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Param("id"), 10, 64)
 	log.Info("{{ModelName}}ByIDGet ", id)
 	m := model.{{ModelName}}ByID(uint(id))
-	json.WriteGinJSON(c, http.StatusOK, m)
+	ginutils.WriteGinJSON(c, http.StatusOK, m)
 }
 
 // Update{{ModelName}}Put 更新 {{ModelName}}
@@ -57,8 +57,8 @@ func Update{{ModelName}}Put(c *gin.Context) {
 
 	m := &model.{{ModelName}}{}
 
-	if err := json.BindGinJSON(c, m); err != nil {
-		json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
+	if err := ginutils.BindGinJSON(c, m); err != nil {
+		ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 			"msg": err.Error(),
 		})
 		return
@@ -67,13 +67,13 @@ func Update{{ModelName}}Put(c *gin.Context) {
 	m.ID = uint(id)
 
 	if err := model.Save{{ModelName}}(m); err != nil {
-		json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
+		ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 			"msg": err.Error(),
 		})
 		return
 	}
 
-	json.WriteGinJSON(c, http.StatusOK, gin.H{})
+	ginutils.WriteGinJSON(c, http.StatusOK, gin.H{})
 }
 
 // {{ModelName}}Delete 更新 {{ModelName}}
@@ -81,19 +81,19 @@ func {{ModelName}}Delete(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Param("id"), 10, 64)
 
 	if err := model.Delete{{ModelName}}(uint(id)); err != nil {
-		json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
+		ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 			"msg": err.Error(),
 		})
 		return
 	}
 
-	json.WriteGinJSON(c, http.StatusOK, gin.H{})
+	ginutils.WriteGinJSON(c, http.StatusOK, gin.H{})
 }
 
 // TODO 为前端暴露 ID-Name 映射
 // All{{ModelName}}IDNameMapGet 获得所有 {{ModelName}} ID-Name 映射
 // func All{{ModelName}}IDNameMapGet(c *gin.Context) {
 //	 mMap := model.All{{ModelName}}IDNameMap()
-// 	 json.WriteGinJSON(c, http.StatusOK, mMap)
+// 	 ginutils.WriteGinJSON(c, http.StatusOK, mMap)
 // }
 

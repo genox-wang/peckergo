@@ -5,7 +5,7 @@ import (
 	"peckergo/api/datacache"
 	"peckergo/api/middleware"
 	"peckergo/api/model"
-	"peckergo/api/utils/json"
+	ginutils "peckergo/api/utils/gin"
 	"strconv"
 	"time"
 
@@ -32,7 +32,7 @@ func CaptchaGet(c *gin.Context) {
 	//write to base64 string.
 	base64stringD := base64Captcha.CaptchaWriteToBase64Encoding(capD)
 
-	json.WriteGinJSON(c, http.StatusOK, gin.H{
+	ginutils.WriteGinJSON(c, http.StatusOK, gin.H{
 		"key":     idKeyD,
 		"captcha": base64stringD,
 	})
@@ -42,27 +42,27 @@ func CaptchaGet(c *gin.Context) {
 func LoginPost(c *gin.Context) {
 	var user model.User
 
-	if err := json.BindGinJSON(c, &user); err == nil {
+	if err := ginutils.BindGinJSON(c, &user); err == nil {
 		verifyResult := base64Captcha.VerifyCaptcha(user.CaptchaKey, user.Captcha)
 		if !verifyResult {
-			json.WriteGinJSON(c, http.StatusUnauthorized, gin.H{
+			ginutils.WriteGinJSON(c, http.StatusUnauthorized, gin.H{
 				"msg": "验证码错误",
 			})
 			return
 		}
 		if err := model.Login(&user); err == nil {
-			json.WriteGinJSON(c, http.StatusOK, gin.H{
+			ginutils.WriteGinJSON(c, http.StatusOK, gin.H{
 				"token": middleware.GetJWTToken(user),
 			})
 		} else {
-			json.WriteGinJSON(c, http.StatusUnauthorized, gin.H{
+			ginutils.WriteGinJSON(c, http.StatusUnauthorized, gin.H{
 				"msg": err.Error(),
 			})
 		}
 		return
 	}
 
-	json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
+	ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 		"msg": "传参数错误!",
 	})
 }
@@ -71,11 +71,11 @@ func LoginPost(c *gin.Context) {
 func NewUserPost(c *gin.Context) {
 	var user model.User
 
-	if err := json.BindGinJSON(c, &user); err == nil {
+	if err := ginutils.BindGinJSON(c, &user); err == nil {
 		if err := model.NewUser(&user); err == nil {
-			json.WriteGinJSON(c, http.StatusOK, gin.H{})
+			ginutils.WriteGinJSON(c, http.StatusOK, gin.H{})
 		} else {
-			json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
+			ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 				"msg": err.Error(),
 			})
 		}
@@ -84,7 +84,7 @@ func NewUserPost(c *gin.Context) {
 
 	datacache.SetPwChangeTime(user.ID, time.Now().Unix())
 
-	json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
+	ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 		"msg": "传参数错误!",
 	})
 }
@@ -92,7 +92,7 @@ func NewUserPost(c *gin.Context) {
 // AllUsersGet get all user
 func AllUsersGet(c *gin.Context) {
 	meta := model.TableMetaFromQuery(c)
-	json.WriteGinJSON(c, http.StatusOK, model.AllUsers(meta))
+	ginutils.WriteGinJSON(c, http.StatusOK, model.AllUsers(meta))
 }
 
 // UserByIDGet get user by id
@@ -100,7 +100,7 @@ func UserByIDGet(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Param("id"), 10, 64)
 	log.Info("UserByIDGet ", id)
 	m := model.UserByID(uint(id))
-	json.WriteGinJSON(c, http.StatusOK, m)
+	ginutils.WriteGinJSON(c, http.StatusOK, m)
 }
 
 // UpdateUserPut 更新 User
@@ -109,8 +109,8 @@ func UpdateUserPut(c *gin.Context) {
 
 	m := &model.User{}
 
-	if err := json.BindGinJSON(c, m); err != nil {
-		json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
+	if err := ginutils.BindGinJSON(c, m); err != nil {
+		ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 			"msg": err.Error(),
 		})
 		return
@@ -119,7 +119,7 @@ func UpdateUserPut(c *gin.Context) {
 	m.ID = uint(id)
 
 	if err := model.SaveUser(m); err != nil {
-		json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
+		ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 			"msg": err.Error(),
 		})
 		return
@@ -127,7 +127,7 @@ func UpdateUserPut(c *gin.Context) {
 
 	datacache.SetPwChangeTime(m.ID, time.Now().Unix())
 
-	json.WriteGinJSON(c, http.StatusOK, gin.H{})
+	ginutils.WriteGinJSON(c, http.StatusOK, gin.H{})
 }
 
 // UserDelete 更新 User
@@ -135,7 +135,7 @@ func UserDelete(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Param("id"), 10, 64)
 
 	if err := model.DeleteUser(uint(id)); err != nil {
-		json.WriteGinJSON(c, http.StatusBadRequest, gin.H{
+		ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 			"msg": err.Error(),
 		})
 		return
@@ -143,5 +143,5 @@ func UserDelete(c *gin.Context) {
 
 	datacache.DelPwChangeTime(uint(id))
 
-	json.WriteGinJSON(c, http.StatusOK, gin.H{})
+	ginutils.WriteGinJSON(c, http.StatusOK, gin.H{})
 }

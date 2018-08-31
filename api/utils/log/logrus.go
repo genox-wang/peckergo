@@ -1,4 +1,4 @@
-package logutils
+package log
 
 import (
 	"fmt"
@@ -35,7 +35,7 @@ func Init() {
 	if config.GetBool("slack.enabled") {
 		key := config.GetString("slack.key")
 		cfg := lrhook.Config{
-			MinLevel: log.DebugLevel,
+			MinLevel: log.ErrorLevel,
 			Message: chat.Message{
 				Channel:   config.GetString("slack.channel"),
 				IconEmoji: ":ghost:",

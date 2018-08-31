@@ -143,7 +143,7 @@ export default {
           render: (h, {row}) => {
             return h('div', this.$d(row.updated_at).format('YYYY-MM-DD HH:mm:ss'));
           }
-        }
+        },
       ]
     };
   },

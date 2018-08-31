@@ -6,17 +6,15 @@ import (
 	"peckergo/api/config"
 	"peckergo/api/model"
 	"peckergo/api/router"
-	"peckergo/api/utils/json"
 
-	"peckergo/api/utils/logutils"
+	"peckergo/api/utils/log"
 )
 
 func main() {
 	// 崩溃抓取
-	defer logutils.PanicRecover()
+	defer log.PanicRecover()
 	// 初始化日志
-	logutils.Init()
-	json.InitJSON(json.NewJSONiter())
+	log.Init()
 	model.OpenDB()
 	defer model.CloseDB()
 	port := config.GetInt("serverPort")

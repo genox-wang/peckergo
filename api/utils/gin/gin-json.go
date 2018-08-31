@@ -1,7 +1,9 @@
-package json
+package gin
 
 import (
 	"net/http"
+
+	"peckergo/api/utils/json"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -26,7 +28,7 @@ func (jsonBinding) Name() string {
 }
 
 func (jsonBinding) Bind(req *http.Request, obj interface{}) error {
-	decoder := NewDecoder(req.Body)
+	decoder := json.NewDecoder(req.Body)
 	if err := decoder.Decode(obj); err != nil {
 		return err
 	}
@@ -66,7 +68,7 @@ func (r JSON) WriteContentType(w http.ResponseWriter) {
 // WriteJSON 写JSON
 func WriteJSON(w http.ResponseWriter, obj interface{}) error {
 	writeContentType(w, jsonContentType)
-	jsonBytes, err := Marshal(obj)
+	jsonBytes, err := json.Marshal(obj)
 	if err != nil {
 		return err
 	}

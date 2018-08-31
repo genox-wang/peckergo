@@ -101,7 +101,7 @@ func init() {
 			return "0", errors.New("len(fs) < 1")
 		}
 		var meta *TableMeta
-		err := json.Unmarshal(fs[0], &meta)
+		err := json.UnmarshalFromString(fs[0], &meta)
 		if err != nil {
 			log.Error(err.Error())
 			return "0", errors.New(err.Error())
@@ -118,7 +118,7 @@ func AllUsers(meta *TableMeta) *TableUser {
 	countMeta := &TableMeta{
 		Filter: meta.Filter,
 	}
-	metaJSON, _ := json.Marshal(countMeta)
+	metaJSON, _ := json.MarshalToString(countMeta)
 	countCache, _ := userCountCache.Get(metaJSON)
 	count, _ := strconv.ParseUint(countCache, 10, 64)
 

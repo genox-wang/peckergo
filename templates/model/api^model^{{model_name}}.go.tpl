@@ -53,7 +53,7 @@ func init() {
 			return "0"
 		}
 		var meta *TableMeta
-		err := json.Unmarshal(fs[0], &meta)
+		err := json.UnToStringFromString(fs[0], &meta)
 		if err != nil {
 			log.Error(err.Error())
 			return "0"
@@ -98,7 +98,7 @@ func All{{ModelName}}s(meta *TableMeta) *Table{{ModelName}} {
 	countMeta := &TableMeta{
 		Filter: meta.Filter,
 	}
-	metaJSON, _ := json.Marshal(countMeta)
+	metaJSON, _ := json.MarshalToString(countMeta)
 	countCache, _ := {{modelName}}CountCache.Get(metaJSON)
 	count, _ := strconv.ParseUint(countCache, 10, 64)
 
