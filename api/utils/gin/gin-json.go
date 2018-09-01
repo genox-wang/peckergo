@@ -1,8 +1,11 @@
 package gin
 
 import (
+	"fmt"
+	"io/ioutil"
 	"net/http"
 
+	"peckergo/api/model"
 	"peckergo/api/utils/json"
 
 	"github.com/gin-gonic/gin"
@@ -16,21 +19,45 @@ func WriteGinJSON(c *gin.Context, code int, v interface{}) {
 
 // BindGinJSON gin 读取 JSON 数据
 func BindGinJSON(c *gin.Context, v interface{}) error {
-	return c.MustBindWith(v, jsonBinding{})
+	return c.MustBindWith(v, jsonBinding{c})
 }
 
 // 重写jsonBinding
 
-type jsonBinding struct{}
+type jsonBinding struct {
+	c *gin.Context
+}
 
 func (jsonBinding) Name() string {
 	return "json"
 }
 
-func (jsonBinding) Bind(req *http.Request, obj interface{}) error {
-	decoder := json.NewDecoder(req.Body)
-	if err := decoder.Decode(obj); err != nil {
-		return err
+func (j jsonBinding) Bind(req *http.Request, obj interface{}) error {
+	u, _ := j.c.Get("user")
+	var user model.User
+	if u != nil {
+		fmt.Println("111")
+	}
+	if req.Method == "GET" || &user == nil || user.ID == 0 {
+		decoder := json.NewDecoder(req.Body)
+		if err := decoder.Decode(obj); err != nil {
+			return err
+		}
+	} else {
+		body, err := ioutil.ReadAll(j.c.Request.Body)
+		if err != nil {
+			return err
+		}
+		err = json.Unmarshal(body, obj)
+		if err != nil {
+			return err
+		}
+		model.NewLogManagement(&model.LogManagement{
+			UserID: user.ID,
+			Path:   j.c.Request.RequestURI,
+			Method: j.c.Request.Method,
+			Body:   string(body),
+		})
 	}
 	return validate(obj)
 }

@@ -40,7 +40,7 @@ const {{modelName}} = {
       .then(resp => {
         return resp.data;
       }),
-    
+
     // TODO 为前端暴露 ID-Name 映射
     // get_{{model_name}}_id_name_map: ({
     //   commit
@@ -51,9 +51,10 @@ const {{modelName}} = {
   },
 
   mutations: {
-    SET_{{MODEL_NAME}}_ID_NAME_MAP (state, payload) {
-      state.idNameMap = payload;
-    }
+    // TODO 为前端暴露 ID-Name 映射
+    // SET_{{MODEL_NAME}}_ID_NAME_MAP (state, payload) {
+    //   state.idNameMap = payload;
+    // }
   }
 };
 

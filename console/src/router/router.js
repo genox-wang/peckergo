@@ -70,6 +70,23 @@ export const appRouter = [
       },
       // ph-appRouter don't remove this line
     ]
+  },
+  {
+    path: '/logs',
+    icon: 'ios-list',
+    name: 'logs',
+    title: '日志',
+    component: Main,
+    children: [
+      {
+        path: 'log_managements',
+        icon: 'ios-paper',
+        name: 'log_managements',
+        title: '操作日志',
+        access: [1],
+        component: () => import('@/views/management-log-management/index.vue')
+      },
+    ]
   }
 ];
 

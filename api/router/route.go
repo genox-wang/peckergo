@@ -30,6 +30,8 @@ func route() {
 		consoleAdmin.PUT("/users/:id", controller.UpdateUserPut)
 		consoleAdmin.DELETE("/users/:id", controller.UserDelete)
 
+		consoleAdmin.GET("/log_managements/", controller.AllLogManagementsGet)
+
 		//ph-router-admin don't remove this line
 	}
 
@@ -38,6 +40,7 @@ func route() {
 		Use(middleware.JWTAuthRequired()).
 		Use(middleware.AuthRoleRequired(model.RoleAdmin, model.RoleOperator))
 	{
+		consoleOperator.GET("/map/users/", controller.AllUserIDNameMapGet)
 		//ph-router-operator don't remove this line
 	}
 

@@ -1,5 +1,5 @@
-hash: fa127d91143ec2b766942457e086bed89c3fc31e8e1dc83a7bf6612799dce69b
-updated: 2018-08-30T17:10:06.587785+08:00
+hash: 94f94948e90278963659c4ad6a82c69956119b35f476b3ed7c3b319843aca34e
+updated: 2018-08-31T18:03:47.466831+08:00
 imports:
 - name: github.com/dgrijalva/jwt-go
   version: 06ea1031745cb8b3dab3f6a236daf2b0aa468b7e
@@ -9,6 +9,8 @@ imports:
   version: cf4846e6a636a76237a28d9286f163c132e841bc
 - name: github.com/gin-contrib/sse
   version: 22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae
+- name: github.com/gin-gonic/contrib
+  version: 39cfb9727134fef3120d2458fce5fab14265a46c
 - name: github.com/gin-gonic/gin
   version: b869fe1415e4b9eb52f247441830d502aece2d4d
   subpackages:

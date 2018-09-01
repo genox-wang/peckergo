@@ -36,6 +36,7 @@ func Migrate() {
 	log.Info("Migrate ... ")
 	DB.AutoMigrate(
 		new(User),
+		new(LogManagement),
 		//ph-AutoMigrate don't remove this line
 	)
 }

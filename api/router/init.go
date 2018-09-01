@@ -3,6 +3,7 @@ package router
 import (
 	"fmt"
 	"peckergo/api/config"
+	"peckergo/api/middleware"
 
 	log "github.com/sirupsen/logrus"
 
@@ -17,14 +18,18 @@ var (
 // Run to start a gin server by port.
 func Run(port int) {
 	if router == nil {
-		log.Panic("route is nil")
+		panic("route is nil")
 	}
+
+	log.Warnf("Listening and serving HTTP on %s\n", fmt.Sprintf(":%d", port))
+	// http.ListenAndServe(fmt.Sprintf(":%d", port), &HttpHandler{})
 	router.Run(fmt.Sprintf(":%d", port))
 }
 
 func init() {
 	gin.SetMode(config.GetString("router.logMode"))
-	router = gin.Default()
+	router = gin.New()
+	router.Use(gin.Logger(), middleware.Recovery())
 	if config.GetBool("corsEnable") {
 		allowCors()
 	}

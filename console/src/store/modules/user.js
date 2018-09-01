@@ -6,6 +6,7 @@ let ajax = util.ajax;
 
 const user = {
   state: {
+    idNameMap: {},
     token: Cookies.get('authToken')
   },
 
@@ -18,7 +19,7 @@ const user = {
         }
       }
       return '';
-    }
+    },
   },
 
   actions: {
@@ -75,6 +76,13 @@ const user = {
     delete_user: ({}, payload) => ajax.delete(`/console/users/${payload}`)
       .then(resp => {
         return resp.data;
+      }),
+
+    get_user_id_name_map: ({
+      commit
+    }) => ajax.get('/console/map/users/')
+      .then((resp) => {
+        commit('SET_USER_ID_NAME_MAP', resp.data);
       })
 
   },
@@ -99,6 +107,10 @@ const user = {
       if (theme) {
         localStorage.theme = theme;
       }
+    },
+
+    SET_USER_ID_NAME_MAP (state, payload) {
+      state.idNameMap = payload;
     }
   }
 };

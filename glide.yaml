@@ -16,3 +16,4 @@ import:
 - package: github.com/multiplay/go-slack
   subpackages:
   - lrhook
+- package: github.com/gin-gonic/contrib

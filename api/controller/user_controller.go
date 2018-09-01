@@ -145,3 +145,9 @@ func UserDelete(c *gin.Context) {
 
 	ginutils.WriteGinJSON(c, http.StatusOK, gin.H{})
 }
+
+// AllUserIDNameMapGet 获得所有 User ID-Name 映射
+func AllUserIDNameMapGet(c *gin.Context) {
+	mMap := model.AllUserIDNameMap()
+	ginutils.WriteGinJSON(c, http.StatusOK, mMap)
+}

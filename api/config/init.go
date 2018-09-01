@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	viper.AddConfigPath("./api/config/")
+	viper.AddConfigPath("./config/")
 	err := viper.ReadInConfig()
 	if err != nil {
 		log.Panic(err.Error())

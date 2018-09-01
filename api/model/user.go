@@ -138,3 +138,16 @@ func UserByID(id uint) *User {
 	DB.Where("id = ?", id).First(&m)
 	return &m
 }
+
+// AllUserIDNameMap 获取所有 User ID-Name 映射
+func AllUserIDNameMap() map[uint]string {
+	var ms []*User
+	if DB.Select("id, display_name").Find(&ms).Error != nil {
+		return map[uint]string{}
+	}
+	mMap := make(map[uint]string, 0)
+	for _, m := range ms {
+		mMap[m.ID] = m.DisplayName
+	}
+	return mMap
+}

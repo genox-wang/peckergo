@@ -45,8 +45,10 @@ pecker init
 // 使用 https://github.com/golang/dep 下载依赖
 dep ensure -v
 
+cd api
+
 // 启动后端 api 服务
-go run api/main.go
+go run main.go
 
 ```
 
