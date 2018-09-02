@@ -1,7 +1,6 @@
 package gin
 
 import (
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -36,7 +35,7 @@ func (j jsonBinding) Bind(req *http.Request, obj interface{}) error {
 	u, _ := j.c.Get("user")
 	var user model.User
 	if u != nil {
-		fmt.Println("111")
+		user = u.(model.User)
 	}
 	if req.Method == "GET" || &user == nil || user.ID == 0 {
 		decoder := json.NewDecoder(req.Body)

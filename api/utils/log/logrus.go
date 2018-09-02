@@ -32,6 +32,8 @@ func Init() {
 	})
 	log.Warnf("logLevel: [%+v]", level)
 
+	logSync = log.New()
+
 	if config.GetBool("slack.enabled") {
 		key := config.GetString("slack.key")
 		cfg := lrhook.Config{
@@ -46,7 +48,6 @@ func Init() {
 		log.AddHook(Hook)
 
 		cfg.Async = false
-		logSync = log.New()
 		logSync.AddHook(lrhook.New(cfg, fmt.Sprintf("%s/%s", slackHook, key)))
 	}
 }

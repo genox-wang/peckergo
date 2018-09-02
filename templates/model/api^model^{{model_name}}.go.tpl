@@ -61,8 +61,8 @@ func init() {
 		newDB := WrapMeta(*meta, DB)
 		var count uint
 		newDB.Model({{ModelName}}{}).Count(&count)
-		return fmt.Sprintf("%d", count)
-	}, time.Minute*5, true), nil
+		return fmt.Sprintf("%d", count), nil
+	}, time.Minute*5, true)
 }
 
 // New{{ModelName}} 创建 {{ModelName}}
