@@ -8,7 +8,6 @@ import (
 	"strconv"
 	"time"
 
-	"peckergo/api/datacache"
 	"peckergo/api/utils/json"
 
 	log "github.com/sirupsen/logrus"
@@ -79,7 +78,6 @@ func SaveUser(m *User) error {
 func DeleteUser(id uint) error {
 	m := &User{}
 	m.ID = id
-	datacache.SetPwChangeTime(m.ID, time.Now().Unix())
 	userCountCache.DelWithPrefix("user_")
 	return DB.Delete(m).Error
 }
