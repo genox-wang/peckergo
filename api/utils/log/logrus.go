@@ -2,7 +2,6 @@ package log
 
 import (
 	"fmt"
-	"os"
 	"peckergo/api/config"
 	"runtime"
 
@@ -18,7 +17,8 @@ const (
 
 var (
 	// Hook lrhook
-	Hook *lrhook.Hook
+	Hook    *lrhook.Hook
+	logSync *log.Logger
 )
 
 // Init log 初始化
@@ -44,6 +44,10 @@ func Init() {
 		}
 		Hook = lrhook.New(cfg, fmt.Sprintf("%s/%s", slackHook, key))
 		log.AddHook(Hook)
+
+		cfg.Async = false
+		logSync = log.New()
+		logSync.AddHook(lrhook.New(cfg, fmt.Sprintf("%s/%s", slackHook, key)))
 	}
 }
 
@@ -52,8 +56,6 @@ func PanicRecover() {
 	if e := recover(); e != nil {
 		var buf [4096]byte
 		n := runtime.Stack(buf[:], false)
-		Hook.Async = false
-		log.Error(e, "\n", string(buf[:n]))
-		os.Exit(1)
+		logSync.Error(e, "\n", string(buf[:n]))
 	}
 }
