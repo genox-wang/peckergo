@@ -4,7 +4,7 @@ let ajax = util.ajax;
 
 const logManagement = {
   state: {
-    // TODO 为前端暴露 ID-Name 映射
+    // 为前端暴露 ID-Name 映射
     // idNameMap: {},
   },
 
@@ -24,7 +24,7 @@ const logManagement = {
         return resp.data;
       }),
 
-    // TODO 为前端暴露 ID-Name 映射
+    // 为前端暴露 ID-Name 映射
     // get_log_management_id_name_map: ({
     //   commit
     // }) => ajax.get('/console/map/log_managements/')

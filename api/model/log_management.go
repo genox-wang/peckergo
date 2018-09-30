@@ -13,10 +13,6 @@ import (
 	cache "ti-ding.com/wangji/gocachemid"
 )
 
-const (
-	cntPrefix = "peckergo_log_management_cnt_"
-)
-
 var (
 	logManagementCountCache *cache.Cache
 )
@@ -31,7 +27,7 @@ type LogManagement struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
-// TODO 分表取消下面方法注释
+// 分表取消下面方法注释
 // TableName 设置表名
 // func (m LogManagement) TableName() string {
 // 	loc, err := time.LoadLocation("Asia/Chongqing")
@@ -52,7 +48,7 @@ type TableLogManagement struct {
 }
 
 func init() {
-	logManagementCountCache = cache.NewCache(&cache.ClientGoCache{}, cntPrefix, func(fs ...string) (string, error) {
+	logManagementCountCache = cache.NewCache(&cache.ClientGoCache{}, "peckergo_log_management_cnt_", func(fs ...string) (string, error) {
 		if len(fs) < 1 {
 			return "0", errors.New("len(fs) < 1")
 		}
@@ -73,14 +69,14 @@ func init() {
 func NewLogManagement(m *LogManagement) error {
 	err := DB.Create(m).Error
 	if err == nil {
-		logManagementCountCache.DelWithPrefix(cntPrefix)
+		logManagementCountCache.DelWithPrefix("peckergo_log_management_cnt_")
 	}
 	return err
 }
 
 // AllLogManagements 获取所有 LogManagements
 func AllLogManagements(meta *TableMeta) *TableLogManagement {
-	// TODO 分表注释上行代码，取消注释下行代码
+	// 分表注释上行代码，取消注释下行代码
 	//func AllLogManagements(meta *TableMeta, suffix string) *TableLogManagement {
 	countMeta := &TableMeta{
 		Filter: meta.Filter,
@@ -91,9 +87,9 @@ func AllLogManagements(meta *TableMeta) *TableLogManagement {
 
 	newDB := WrapMeta(*meta, DB)
 	logManagements := make([]*LogManagement, 0)
-	// TODO 分表注释下行代码
+	// 分表注释下行代码
 	newDB.Find(&logManagements)
-	// TODO 分表取消注释下行代码
+	// 分表取消注释下行代码
 	//newDB.Table(fmt.Sprintf("log_managements_%s", suffix)).Find(&logManagements)
 	meta.Pagination.Total = uint(count)
 	return &TableLogManagement{

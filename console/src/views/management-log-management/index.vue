@@ -6,7 +6,7 @@
         <div slot="content">
           <Row>
             <Form :label-width="80">
-              <!-- TODO 分表注释以下 -->
+              <!-- 分表注释以下 -->
               <Col span="8">
                 <FormItem label="创建时间">
                   <DatePicker v-model="dateTimeRange" type="datetimerange" format="yyyy-MM-dd HH:mm" placeholder="创建时间" style="width: 260px"></DatePicker>
@@ -33,7 +33,7 @@
                   <Input placeholder="路由" v-model="selectedPath"></Input>
                 </FormItem>
               </Col>
-              <!-- TODO 分表取消注释
+              <!-- 分表取消注释
               <Col span="8">
                  <FormItem label="日期">
                    <DatePicker  v-model="date" type="date" placeholder="日期"></DatePicker>
@@ -104,9 +104,9 @@ export default {
       apiGet: 'get_log_managements',
       deleteModel: false,
       tableLoading: false,
-      // TODO 分表注释下行
+      // 分表注释下行
       dateTimeRange: [],
-      // TODO 分表取消注释下面两行
+      // 分表取消注释下面两行
       // date: '',
       // time: [],
       selectedID: 0,
@@ -191,7 +191,7 @@ export default {
 
     formatFilters () {
       this.filters = [];
-      // TODO 分表注释下行
+      // 分表注释下行
       this.fPushTimeRange('created_at', this.dateTimeRange);
       if (this.selectedUserID) {
         this.fPushEqual('user_id', this.selectedUserID);
@@ -202,7 +202,7 @@ export default {
       if (this.selectedPath) {
         this.fPushEqual('path', this.selectedPath);
       }
-      // TODO 分表取消以下注释
+      // 分表取消以下注释
       // let date = this.date ? this.$d(this.date) : this.$d();
       // let timeRange = [];
       // if (this.time[0]) {

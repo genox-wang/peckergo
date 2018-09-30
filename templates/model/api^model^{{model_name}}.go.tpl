@@ -12,10 +12,6 @@ import (
 	cache "ti-ding.com/wangji/gocachemid"
 )
 
-const (
-	cntPrefix = "{{projectName}}_{{model_name}}_cnt_"
-)
-
 var (
 	{{modelName}}CountCache *cache.Cache
 )
@@ -48,7 +44,7 @@ type Table{{ModelName}} struct {
 }
 
 func init() {
-	{{modelName}}CountCache = cache.NewCache(&cache.ClientGoCache{}, cntPrefix, func(fs ...string) (string, error) {
+	{{modelName}}CountCache = cache.NewCache(&cache.ClientGoCache{}, "{{projectName}}_{{model_name}}_cnt_", func(fs ...string) (string, error) {
 		if len(fs) < 1 {
 			return "0", errors.New("len(fs) < 1")
 		}
@@ -69,7 +65,7 @@ func init() {
 func New{{ModelName}}(m *{{ModelName}}) error {
 	err := DB.Create(m).Error
 	if err == nil {
-		{{modelName}}CountCache.DelWithPrefix(cntPrefix)
+		{{modelName}}CountCache.DelWithPrefix("{{projectName}}_{{model_name}}_cnt_")
 	}
 	return err
 }
@@ -85,7 +81,7 @@ func Delete{{ModelName}}(id uint) error {
 	m.ID = id
 	err := DB.Delete(m).Error
 	if err == nil {
-		{{modelName}}CountCache.DelWithPrefix(cntPrefix)
+		{{modelName}}CountCache.DelWithPrefix("{{projectName}}_{{model_name}}_cnt_")
 	}
 	return err
 }
