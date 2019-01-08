@@ -1,8 +1,8 @@
 # PeckerGo
 
-![初始化项目](http://p4unhgojt.bkt.clouddn.com/pecker_init.gif)
+![初始化项目](https://github.com/wilfordw/peckergo/blob/master/pecker_init_example.gif?raw=true)
 
-![添加 model](http://p4unhgojt.bkt.clouddn.com/pecker_model.gif)
+![添加 model](https://github.com/wilfordw/peckergo/blob/master/pecker_model_example.gif?raw=true)
 
 ### 简介
 
