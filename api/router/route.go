@@ -3,7 +3,7 @@ package router
 import (
 
 	// "net/http"
-	// "trans-trip-admin-api/app/config"
+	// "peckergo-api/app/config"
 	"peckergo/api/controller"
 	"peckergo/api/middleware"
 	"peckergo/api/model"
@@ -31,6 +31,8 @@ func route() {
 		consoleAdmin.DELETE("/users/:id", controller.UserDelete)
 
 		consoleAdmin.GET("/log_managements/", controller.AllLogManagementsGet)
+
+		consoleAdmin.GET("/dbtabless/", controller.AllDbtablessGet)
 
 		//ph-router-admin don't remove this line
 	}

@@ -3,7 +3,7 @@ package json
 import (
 	"io"
 
-	"github.com/json-iterator/go"
+	jsoniter "github.com/json-iterator/go"
 )
 
 var (

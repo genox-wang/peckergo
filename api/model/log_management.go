@@ -10,7 +10,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	cache "ti-ding.com/wangji/gocachemid"
+	cache "github.com/wilfordw/go-cachemid"
 )
 
 var (

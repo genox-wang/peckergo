@@ -2,12 +2,10 @@ package controller
 
 import (
 	"net/http"
-	"peckergo/api/datacache"
 	"peckergo/api/middleware"
 	"peckergo/api/model"
 	ginutils "peckergo/api/utils/gin"
 	"strconv"
-	"time"
 
 	log "github.com/sirupsen/logrus"
 
@@ -82,8 +80,6 @@ func NewUserPost(c *gin.Context) {
 		return
 	}
 
-	datacache.SetPwChangeTime(user.ID, time.Now().Unix())
-
 	ginutils.WriteGinJSON(c, http.StatusBadRequest, gin.H{
 		"msg": "传参数错误!",
 	})
@@ -125,8 +121,6 @@ func UpdateUserPut(c *gin.Context) {
 		return
 	}
 
-	datacache.SetPwChangeTime(m.ID, time.Now().Unix())
-
 	ginutils.WriteGinJSON(c, http.StatusOK, gin.H{})
 }
 
@@ -140,8 +134,6 @@ func UserDelete(c *gin.Context) {
 		})
 		return
 	}
-
-	datacache.DelPwChangeTime(uint(id))
 
 	ginutils.WriteGinJSON(c, http.StatusOK, gin.H{})
 }

@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"net/http"
-	"peckergo/api/datacache"
 	"peckergo/api/model"
 	"time"
 
@@ -40,28 +39,6 @@ func JWTAuthRequired() gin.HandlerFunc {
 			if d, ok := claims["id"]; ok {
 				u.ID = uint(d.(float64))
 			} else {
-				c.AbortWithStatus(http.StatusUnauthorized)
-				return
-			}
-
-			var created int64
-			if d, ok := claims["created"]; ok {
-				created = int64(d.(float64))
-			} else {
-				c.AbortWithStatus(http.StatusUnauthorized)
-				return
-			}
-
-			pwChangeTime, err := datacache.GetPwChangeTime(u.ID)
-
-			if err != nil {
-				log.Error(err.Error())
-				pwChangeTime = 0
-				// c.AbortWithStatus(http.StatusUnauthorized)
-				// return
-			}
-
-			if pwChangeTime > created {
 				c.AbortWithStatus(http.StatusUnauthorized)
 				return
 			}

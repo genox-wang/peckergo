@@ -13,11 +13,6 @@ services:
       MYSQL_DATABASE: peckergo
     restart: always
 
-  redis:
-    image: redis
-    container_name: peckergo_redis
-    restart: always
-
   api:
     build:
       context: ./
@@ -30,7 +25,6 @@ services:
       - "8901:8000"
     depends_on:
       - mysql
-      - redis
     restart: always
 
 volumes:

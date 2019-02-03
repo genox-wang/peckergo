@@ -37,6 +37,7 @@ func Migrate() {
 	DB.AutoMigrate(
 		new(User),
 		new(LogManagement),
+		new(Dbtables),
 		//ph-AutoMigrate don't remove this line
 	)
 }

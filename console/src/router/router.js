@@ -54,6 +54,23 @@ export const otherRouter = {
 // 作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
 export const appRouter = [
   {
+    path: '/tables',
+    icon: 'md-speedometer',
+    name: 'tables',
+    title: '监控',
+    component: Main,
+    children: [
+      {
+        path: 'dbtabless',
+        icon: 'logo-buffer',
+        name: 'dbtabless',
+        title: '数据库监控',
+        access: [1],
+        component: () => import('@/views/management-dbtables/index.vue')
+      },
+    ]
+  },
+  {
     path: '/management',
     icon: 'md-cog',
     name: 'management',
