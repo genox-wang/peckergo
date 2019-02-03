@@ -9,10 +9,10 @@
         <div class="error500-body-con-title">
           5
           <span class="error500-0-span">
-            <Icon type="social-freebsd-devil"></Icon>
+            <Icon type="logo-freebsd-devil"></Icon>
           </span>
           <span class="error500-0-span">
-            <Icon type="social-freebsd-devil"></Icon>
+            <Icon type="logo-freebsd-devil"></Icon>
           </span>
         </div>
         <p class="error500-body-con-message">Oops! the server is wrong</p>

@@ -13,6 +13,7 @@ module.exports = {
       .options({
         prefix: false
       });
+
     config.resolve.alias
       .set('@', resolve('/src'));
   }
