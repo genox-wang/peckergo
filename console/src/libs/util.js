@@ -206,6 +206,7 @@ util.setCurrentPath = function (vm, name) {
       ];
     }
   }
+
   vm.$store.commit('setCurrentPath', currentPathArr);
 
   return currentPathArr;

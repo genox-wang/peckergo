@@ -162,7 +162,8 @@ const app = {
       // localStorage.pageOpenedList = JSON.stringify(state.pageOpenedList);
     },
     setOpenedList (state) {
-      state.pageOpenedList = [otherRouter.children[0]]; // localStorage.pageOpenedList ? JSON.parse(localStorage.pageOpenedList) : [otherRouter.children[0]];
+      // state.pageOpenedList = [otherRouter.children[0]]; // localStorage.pageOpenedList ? JSON.parse(localStorage.pageOpenedList) : [otherRouter.children[0]];
+      state.pageOpenedList = [appRouter[0].children[0]]; // localStorage.pageOpenedList ? JSON.parse(localStorage.pageOpenedList) : [otherRouter.children[0]];
     },
     setCurrentPath (state, pathArr) {
       state.currentPath = pathArr;

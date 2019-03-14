@@ -95,7 +95,7 @@ func All{{ModelName}}s(meta *TableMeta) *Table{{ModelName}} {
 		Filter: meta.Filter,
 	}
 	metaJSON, _ := json.MarshalToString(countMeta)
-	countCache, _ := {{modelName}}CountCache.Get(metaJSON)
+	countCache, _, _ := {{modelName}}CountCache.Get(metaJSON)
 	count, _ := strconv.ParseUint(countCache, 10, 64)
 
 	newDB := WrapMeta(*meta, DB)

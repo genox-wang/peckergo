@@ -82,7 +82,7 @@ func AllLogManagements(meta *TableMeta) *TableLogManagement {
 		Filter: meta.Filter,
 	}
 	metaJSON, _ := json.MarshalToString(countMeta)
-	countCache, _ := logManagementCountCache.Get(metaJSON)
+	countCache, _, _ := logManagementCountCache.Get(metaJSON)
 	count, _ := strconv.ParseUint(countCache, 10, 64)
 
 	newDB := WrapMeta(*meta, DB)

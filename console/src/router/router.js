@@ -41,10 +41,10 @@ export const page500 = {
 export const otherRouter = {
   path: '/',
   name: 'otherRouter',
-  redirect: '/home',
+  redirect: '/stats/home',
   component: Main,
   children: [
-    { path: 'home', title: '首页', name: 'home_index', component: () => import('@/views/home/home.vue') },
+    // { path: 'home', title: '首页', name: 'home_index', component: () => import('@/views/home/home.vue') },
     { path: '/management/users/new', title: '新建用户', name: 'user_new', access: [1], component: () => import('@/views/management-user/new.vue') },
     { path: '/management/users/:id', title: '编辑用户', name: 'user_edit', access: [1], component: () => import('@/views/management-user/edit.vue') },
     // ph-otherRouter don't remove this line
@@ -53,6 +53,23 @@ export const otherRouter = {
 
 // 作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
 export const appRouter = [
+  {
+    path: '/stats',
+    icon: 'md-speedometer',
+    name: 'stats',
+    title: '数据分析',
+    component: Main,
+    children: [
+      {
+        path: 'home',
+        icon: 'md-analytics',
+        name: 'home_index',
+        title: '仪表盘',
+        access: [1],
+        component: () => import('@/views/home/home.vue')
+      },
+    ]
+  },
   {
     path: '/tables',
     icon: 'md-speedometer',

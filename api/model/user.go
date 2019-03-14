@@ -117,7 +117,7 @@ func AllUsers(meta *TableMeta) *TableUser {
 		Filter: meta.Filter,
 	}
 	metaJSON, _ := json.MarshalToString(countMeta)
-	countCache, _ := userCountCache.Get(metaJSON)
+	countCache, _, _ := userCountCache.Get(metaJSON)
 	count, _ := strconv.ParseUint(countCache, 10, 64)
 
 	newDB := WrapMeta(*meta, DB)

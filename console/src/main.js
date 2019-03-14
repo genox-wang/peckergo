@@ -6,6 +6,7 @@ import {router} from './router/index';
 import {appRouter} from './router/router';
 import store from './store';
 import App from './app.vue';
+import VCharts from 'v-charts';
 // import 'iview/dist/styles/iview.css';
 import './index.less';
 import util from './libs/util';
@@ -19,6 +20,7 @@ Vue.prototype._isMobile = () => {
 };
 
 Vue.use(iView);
+Vue.use(VCharts);
 
 let vm = new Vue({
   el: '#app',
