@@ -63,6 +63,10 @@ func init() {
 
 // New{{ModelName}} 创建 {{ModelName}}
 func New{{ModelName}}(m *{{ModelName}}) error {
+	// TODO 分表取消注释下行代码
+	//if !HasTable(&{{ModelName}}{}) {
+	//	DB.CreateTable(&{{ModelName}}{})
+	//}
 	err := DB.Create(m).Error
 	if err == nil {
 		{{modelName}}CountCache.DelWithPrefix("{{projectName}}_{{model_name}}_cnt_")
