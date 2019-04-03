@@ -114,7 +114,9 @@ func All{{ModelName}}s(meta *TableMeta) *Table{{ModelName}} {
 // {{ModelName}}ByID 通过 id 获取 {{ModelName}}
 func {{ModelName}}ByID(id uint) *{{ModelName}} {
 	var m {{ModelName}}
-	DB.Where("id = ?", id).First(&m)
+	if DB.Where("id = ?", id).First(&m).Error != nil {
+		return nil
+	}
 	return &m
 }
 

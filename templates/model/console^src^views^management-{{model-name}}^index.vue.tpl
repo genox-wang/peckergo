@@ -121,22 +121,6 @@ export default {
     };
   },
   methods: {
-
-    pageChanged (page) {
-      this.pagination.page = page;
-      this.reset();
-    },
-
-    sizeChanged (size) {
-      this.pagination.size = size;
-      this.reset();
-    },
-
-    sortChanged ({key, order}) {
-      this.orders = this._.isEqual(order, 'desc') ? ['-' + key] : [key];
-      this.reset();
-    },
-
     onNew () {
       this.$router.push({
         name: '{{model_name}}_new'
