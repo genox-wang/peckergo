@@ -12,7 +12,7 @@ router:
 
 db:
   dbName: "peckergo"
-  dsn: "root:root@tcp(localhost:3306)/peckergo?charset=utf8&parseTime=true"
+  dsn: "root:root@tcp(localhost:3306)/peckergo?parseTime=true"
   showLog: true
 
 # 默认管理员用户名密码
