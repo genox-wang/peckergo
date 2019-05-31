@@ -3,8 +3,8 @@
     <Row>
       <!-- TODO 添加表单 html-->
       <!-- <Col span="16">
-        <FormItem label="昵称" prop="display_name">
-          <Input placeholder="昵称" v-model="form.display_name" @on-enter.stop="$refs.base.save()"></Input>
+        <FormItem label="昵称" prop="name">
+          <Input placeholder="昵称" v-model="form.name" @on-enter.stop="$refs.base.save()"></Input>
         </FormItem>
       </Col> -->
     </Row>
@@ -26,11 +26,12 @@ export default {
     return {
       form: {
         // TODO 添加表单字段
+        // name: ''
       },
       rules: {
-        // TODO 添加表单验证策略
+        // TODO 添加表单验证策略 键对应表单的 prop
         // https://github.com/yiminghe/async-validator
-        // username: [
+        // name: [
         //   { required: true, message: '账号不能为空', trigger: 'blur' }
         // ],
       }
@@ -42,7 +43,8 @@ export default {
       return this.$store.dispatch('create_{{model_name}}', this.form);
     },
     reset () {
-      // TODO 清空表单数据 如 this.form.name = '';
+      // TODO 清空表单数据 
+      // this.form.name = '';
     }
   }
 };

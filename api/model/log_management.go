@@ -48,21 +48,30 @@ type TableLogManagement struct {
 }
 
 func init() {
-	logManagementCountCache = cache.NewCache(&cache.ClientGoCache{}, "peckergo_log_management_cnt_", func(fs ...string) (string, error) {
+	funcReadData := func(fs ...string) (string, bool, error) {
 		if len(fs) < 1 {
-			return "0", errors.New("len(fs) < 1")
+			return "0", true, errors.New("len(fs) < 1")
 		}
 		var meta *TableMeta
 		err := json.UnmarshalFromString(fs[0], &meta)
 		if err != nil {
 			log.Error(err.Error())
-			return "0", errors.New(err.Error())
+			return "0", true, errors.New(err.Error())
 		}
 		newDB := WrapMeta(*meta, DB)
 		var count uint
 		newDB.Model(LogManagement{}).Count(&count)
-		return fmt.Sprintf("%d", count), nil
-	}, time.Minute*5, true)
+		return fmt.Sprintf("%d", count), true, nil
+	}
+
+	logManagementCountCache = &cache.Cache{
+		CacheClient:      cache.NewGoCache(),
+		KeyPrefix:        "peckergo_log_management_cnt_",
+		FuncReadData:     funcReadData,
+		ExpireTime:       time.Minute * 5,
+		Cache2Enabled:    true,
+		Cache2ExpireTime: cache.DefaultCache2ExpirePadding,
+	}
 }
 
 // NewLogManagement 创建 LogManagement

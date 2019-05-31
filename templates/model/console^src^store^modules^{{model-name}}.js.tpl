@@ -5,7 +5,7 @@ let ajax = util.ajax;
 const {{modelName}} = {
   state: {
     // TODO 为前端暴露 ID-Name 映射
-    // idNameMap: {},
+    // idNameMap: {}
   },
 
   getters: {
@@ -47,7 +47,7 @@ const {{modelName}} = {
     // }) => ajax.get('/console/map/{{model_name}}s/')
     //   .then((resp) => {
     //     commit('SET_{{MODEL_NAME}}_ID_NAME_MAP', resp.data);
-    //  }),
+    //  })
   },
 
   mutations: {

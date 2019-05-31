@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"peckergo/api/utils/json"
+	"advertisement_admin/api/utils/json"
 
 	log "github.com/sirupsen/logrus"
 
@@ -18,10 +18,10 @@ import (
 const (
 	// RoleAdmin 管理员角色
 	RoleAdmin = 1
-	// RoleOperator 操作员角色
-	RoleOperator = 2
+	// RoleClient 客户角色
+	RoleClient = 2
 	// Salt 为密码加密加盐
-	Salt = "Salt"
+	Salt = "Pn3dQvLM"
 )
 
 var (
@@ -34,7 +34,7 @@ type User struct {
 	DisplayName string `json:"display_name"`
 	Username    string `json:"username" gorm:"unique;not null"`
 	Password    string `json:"password" gorm:"not null"`
-	Role        int    `json:"role" gorm:"default:0"`
+	Role        int    `json:"role" gorm:"default:0"` // 1 管理员  2 客户
 	CaptchaKey  string `json:"captcha_key" gorm:"-"`
 	Captcha     string `json:"captcha" gorm:"-"`
 }
@@ -94,21 +94,30 @@ func CrptoPassword(password string) string {
 }
 
 func init() {
-	userCountCache = cache.NewCache(&cache.ClientGoCache{}, "user_", func(fs ...string) (string, error) {
+	funcReadData := func(fs ...string) (string, bool, error) {
 		if len(fs) < 1 {
-			return "0", errors.New("len(fs) < 1")
+			return "0", true, errors.New("len(fs) < 1")
 		}
 		var meta *TableMeta
 		err := json.UnmarshalFromString(fs[0], &meta)
 		if err != nil {
 			log.Error(err.Error())
-			return "0", errors.New(err.Error())
+			return "0", true, errors.New(err.Error())
 		}
 		newDB := WrapMeta(*meta, DB)
 		var count uint
 		newDB.Model(User{}).Count(&count)
-		return fmt.Sprintf("%d", count), nil
-	}, time.Minute*5, true)
+		return fmt.Sprintf("%d", count), true, nil
+	}
+
+	userCountCache = &cache.Cache{
+		CacheClient:      cache.NewGoCache(),
+		KeyPrefix:        "user_",
+		FuncReadData:     funcReadData,
+		ExpireTime:       time.Minute * 5,
+		Cache2Enabled:    true,
+		Cache2ExpireTime: cache.DefaultCache2ExpirePadding,
+	}
 }
 
 // AllUsers 获取所有 Users

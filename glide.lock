@@ -1,8 +1,8 @@
 hash: 2a78639ab45bab21e19d285a97d1ebcb1989c3b008e6014d97ade3b460ba456a
-updated: 2019-03-14T18:51:49.745251+08:00
+updated: 2019-05-31T18:14:18.95411+08:00
 imports:
 - name: github.com/dgrijalva/jwt-go
-  version: 3af4c746e1c248ee8491a3e0c6f7a9cd831e95f8
+  version: 06ea1031745cb8b3dab3f6a236daf2b0aa468b7e
 - name: github.com/fsnotify/fsnotify
   version: c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9
 - name: github.com/gin-contrib/cors
@@ -10,22 +10,13 @@ imports:
 - name: github.com/gin-contrib/sse
   version: 22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae
 - name: github.com/gin-gonic/contrib
-  version: 54170a7b0b4b2f9219c79599b1b03830a5a7d68d
+  version: 39cfb9727134fef3120d2458fce5fab14265a46c
 - name: github.com/gin-gonic/gin
-  version: d459835d2b077e44f7c9b453505ee29881d5d12d
+  version: b869fe1415e4b9eb52f247441830d502aece2d4d
   subpackages:
   - binding
+  - json
   - render
-- name: github.com/go-redis/redis
-  version: 83fb42932f6145ce52df09860384a4653d2d332a
-  subpackages:
-  - internal
-  - internal/consistenthash
-  - internal/hashtag
-  - internal/pool
-  - internal/proto
-  - internal/singleflight
-  - internal/util
 - name: github.com/go-sql-driver/mysql
   version: 72cd26f257d44c1114970e19afddcd812016007e
 - name: github.com/golang/freetype
@@ -50,11 +41,11 @@ imports:
   - json/scanner
   - json/token
 - name: github.com/jinzhu/gorm
-  version: 472c70caa40267cb89fd8facb07fe6454b578626
+  version: b7156195f7f3415f97c20abbd6aff894b847fee8
 - name: github.com/jinzhu/inflection
   version: 04140366298a54a039076d798123ffa108fff46c
 - name: github.com/json-iterator/go
-  version: 1624edc4454b8682399def8740d46db5e4362ba4
+  version: 0ff49de124c6f76f8494e194af75bde0f1a49a29
 - name: github.com/magiconair/properties
   version: 2c9e9502788518c97fe44e8955cd069417ee89df
 - name: github.com/mattn/go-isatty
@@ -66,7 +57,7 @@ imports:
 - name: github.com/modern-go/reflect2
   version: 58118c1ea9161250907268a484af4dd6ed314280
 - name: github.com/mojocn/base64Captcha
-  version: e1b77b587119cfcf833a9e616ebaa98c7872879d
+  version: 7d0b78ad1685f79a0fea381c107d77ec1f812500
 - name: github.com/multiplay/go-slack
   version: 6f89412cdb8cc2c5d6e58ff736b97d82a86d25d5
   subpackages:
@@ -96,13 +87,13 @@ imports:
   subpackages:
   - codec
 - name: github.com/wilfordw/go-cachemid
-  version: cbf358635bb920470f3847920ced330ea17a37ba
+  version: c0656c0bb7d2009d167c0c658b35b9443d24bc4e
 - name: golang.org/x/crypto
   version: c4a91bd4f524f10d064139674cf55852e055ad01
   subpackages:
   - ssh/terminal
 - name: golang.org/x/image
-  version: 183bebdce1b249c42a7cf6772817e8c2e873b966
+  version: c73c2afc3b812cdd6385de5a50616511c4a3d458
   subpackages:
   - font
   - math/fixed

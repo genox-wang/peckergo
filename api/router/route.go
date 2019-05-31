@@ -40,7 +40,7 @@ func route() {
 	consoleOperator := router.Group("/console")
 	consoleOperator.
 		Use(middleware.JWTAuthRequired()).
-		Use(middleware.AuthRoleRequired(model.RoleAdmin, model.RoleOperator))
+		Use(middleware.AuthRoleRequired(model.RoleAdmin, model.RoleClient))
 	{
 		consoleOperator.GET("/map/users/", controller.AllUserIDNameMapGet)
 		//ph-router-operator don't remove this line
