@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"strconv"
+	"errors"
 	"time"
 
 	"{{projectName}}/api/utils/json"
@@ -44,30 +45,39 @@ type Table{{ModelName}} struct {
 }
 
 func init() {
-	{{modelName}}CountCache = cache.NewCache(&cache.ClientGoCache{}, "{{projectName}}_{{model_name}}_cnt_", func(fs ...string) (string, error) {
+	funcReadData := func(fs ...string) (string, bool, error) {
 		// TODO 分表注释下面3行代码
 		if len(fs) < 1 {
-			return "0", errors.New("len(fs) < 1")
+			return "0", true, errors.New("len(fs) < 1")
 		}
-		// TODO 分表取消下面方法注释
+			// TODO 分表取消下面方法注释
 		// if len(fs) < 2 {
 		//	return "0", errors.New("len(fs) < 2")
 		// }
-
 		var meta *TableMeta
 		err := json.UnmarshalFromString(fs[0], &meta)
 		if err != nil {
 			log.Error(err.Error())
-			return "0", errors.New(err.Error())
+			return "0", true, errors.New(err.Error())
 		}
 		newDB := WrapMeta(*meta, DB)
-		var count uint
+		var count uint	
 		// TODO 分表注释下行代码
 		newDB.Model({{ModelName}}{}).Count(&count)
 		// TODO 分表取消下行注释
 		// newDB.Table(fmt.Sprintf("{{model_name}}_%s", fs[1])).Count(&count)
-		return fmt.Sprintf("%d", count), nil
-	}, time.Minute*5, true)
+		return fmt.Sprintf("%d", count), true, nil
+	}
+
+	{{modelName}}CountCache = &cache.Cache{
+		CacheClient:      cache.NewGoCache(),
+		KeyPrefix:        "{{projectName}}_{{model_name}}_cnt_",
+		FuncReadData:     funcReadData,
+		ExpireTime:       time.Minute * 5,
+		Cache2Enabled:    true,
+		Cache2ExpireTime: cache.DefaultCache2ExpirePadding,
+	}
+	
 }
 
 // New{{ModelName}} 创建 {{ModelName}}

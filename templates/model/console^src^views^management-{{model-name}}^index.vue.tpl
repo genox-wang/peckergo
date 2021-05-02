@@ -104,7 +104,7 @@ export default {
           key: 'created_at',
           minWidth: 150,
           sortable: 'custom',
-          render: (h, {row}) => {
+          render: (h, { row }) => {
             return h('div', this.$d(row.created_at).format('YYYY-MM-DD HH:mm:ss'));
           }
         },
@@ -113,7 +113,7 @@ export default {
           key: 'updated_at',
           minWidth: 150,
           sortable: 'custom',
-          render: (h, {row}) => {
+          render: (h, { row }) => {
             return h('div', this.$d(row.updated_at).format('YYYY-MM-DD HH:mm:ss'));
           }
         }
@@ -121,7 +121,6 @@ export default {
     };
   },
   methods: {
-    
     onNew () {
       this.$router.push({
         name: '{{model_name}}_new'

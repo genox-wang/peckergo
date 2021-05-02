@@ -12,7 +12,7 @@ const {{modelName}} = {
   },
 
   actions: {
-    get_{{model_name}}s ({}, {limit, page, orders, filters}) {
+    get_{{model_name}}s ({}, { limit, page, orders, filters }) {
       return ajax.get(`/console/{{model_name}}s/?${util.getAllQuery(limit, page, orders, filters)}`)
         .then(resp => {
           return resp.data;
