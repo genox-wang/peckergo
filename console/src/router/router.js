@@ -55,16 +55,16 @@ export const otherRouter = {
 export const appRouter = [
   {
     path: '/stats',
-    icon: 'md-speedometer',
+    icon: 'ios-speedometer-outline',
     name: 'stats',
     title: '数据分析',
     component: Main,
     children: [
       {
         path: 'home',
-        icon: 'md-analytics',
+        icon: 'ios-podium',
         name: 'home_index',
-        title: '仪表盘',
+        title: 'PV-UV',
         access: [1],
         component: () => import('@/views/home/home.vue')
       },
@@ -88,40 +88,23 @@ export const appRouter = [
     ]
   },
   {
-    path: '/management',
-    icon: 'md-cog',
-    name: 'management',
-    title: '管理',
+    path: '/usr_mgr',
+    icon: '',
+    name: 'usr_mgr',
+    title: '用户管理',
     component: Main,
     children: [
       {
         path: 'users',
-        icon: 'logo-octocat',
+        icon: 'md-person',
         name: 'users',
-        title: '用户',
+        title: '用户配置',
         access: [1],
         component: () => import('@/views/management-user/index.vue')
       },
       // ph-appRouter don't remove this line
     ]
   },
-  {
-    path: '/logs',
-    icon: 'ios-list',
-    name: 'logs',
-    title: '日志',
-    component: Main,
-    children: [
-      {
-        path: 'log_managements',
-        icon: 'ios-paper',
-        name: 'log_managements',
-        title: '操作日志',
-        access: [1],
-        component: () => import('@/views/management-log-management/index.vue')
-      },
-    ]
-  }
 ];
 
 // 所有上面定义的路由都要写在下面的routers里

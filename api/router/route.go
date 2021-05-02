@@ -34,20 +34,17 @@ func route() {
 
 		consoleAdmin.GET("/dbtabless/", controller.AllDbtablessGet)
 
+
 		//ph-router-admin don't remove this line
 	}
 
 	consoleOperator := router.Group("/console")
 	consoleOperator.
 		Use(middleware.JWTAuthRequired()).
-		Use(middleware.AuthRoleRequired(model.RoleAdmin, model.RoleClient))
+		Use(middleware.AuthRoleRequired(model.RoleAdmin, model.RoleAdmin))
 	{
 		consoleOperator.GET("/map/users/", controller.AllUserIDNameMapGet)
+
 		//ph-router-operator don't remove this line
 	}
-
-	// api := router.Group("/api")
-	// {
-
-	// }
 }

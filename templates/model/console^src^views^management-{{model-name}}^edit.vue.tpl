@@ -3,8 +3,8 @@
     <Row>
       <!-- TODO  添加表单 html -->
       <!-- <Col span="16">
-        <FormItem label="昵称" prop="name">
-          <Input placeholder="昵称" v-model="form.name" @on-enter.stop="$refs.base.save()"></Input>
+        <FormItem label="昵称" prop="display_name">
+          <Input placeholder="昵称" v-model="form.display_name" @on-enter.stop="$refs.base.save()"></Input>
         </FormItem>
       </Col> -->
     </Row>
@@ -26,13 +26,12 @@ export default {
     return {
       form: {
         // TODO 添加表单字段
-        // name: ''
       },
       rules: {
-        // TODO 添加表单验证策略  键对应表单的 prop
+        // TODO 添加表单验证策略
         // https://github.com/yiminghe/async-validator
-        // name: [
-        //   { required: true, message: '名称不能为空', trigger: 'blur' }
+        // username: [
+        //   { required: true, message: '账号不能为空', trigger: 'blur' }
         // ],
       }
     };
@@ -40,7 +39,6 @@ export default {
   methods: {
     save () {
       // TODO 保存前给表单数据进行处理
-      // this.form.name = this.form.name + '';
       return this.$store.dispatch('update_{{model_name}}', this.form);
     },
     reset () {
@@ -48,9 +46,8 @@ export default {
       let id = self.$route.params.id;
       this.$store.dispatch('get_{{model_name}}_by_id', this.$route.params.id).then((data) => {
         if (data) {
-          // TODO 初始化表单数据
+          // TODO 初始化表单数据 如 self.form.name = data.name;
           self.form.id = parseInt(id);
-          // self.form.name = data.name;
         }
       });
     }

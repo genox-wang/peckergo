@@ -1,9 +1,9 @@
 package router
 
 import (
-	"fmt"
 	"peckergo/api/config"
 	"peckergo/api/middleware"
+	"fmt"
 
 	log "github.com/sirupsen/logrus"
 
@@ -29,7 +29,12 @@ func Run(port int) {
 func init() {
 	gin.SetMode(config.GetString("router.logMode"))
 	router = gin.New()
-	router.Use(gin.Logger(), middleware.Recovery())
+	if config.GetString("router.logMode") == "release" {
+		router.Use(middleware.Recovery())
+	} else {
+		router.Use(gin.Logger(), middleware.Recovery())
+	}
+
 	if config.GetBool("corsEnable") {
 		allowCors()
 	}

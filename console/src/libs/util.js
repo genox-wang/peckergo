@@ -12,7 +12,7 @@ util.title = function (title) {
 console.log('ENV ', process.env.NODE_ENV);
 
 const apiURLDev = 'http://127.0.0.1:8000';
-const apiURLPro = 'http://hastrans.api.happygod.cn/';
+const apiURLPro = 'https://adv.api.mcbox.cn/';
 
 const ajaxUrl = process.env.NODE_ENV === 'development' ? apiURLDev : apiURLPro;
 

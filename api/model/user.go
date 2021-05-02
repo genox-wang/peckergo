@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"advertisement_admin/api/utils/json"
+	"peckergo/api/utils/json"
 
 	log "github.com/sirupsen/logrus"
 

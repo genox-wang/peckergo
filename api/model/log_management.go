@@ -63,7 +63,6 @@ func init() {
 		newDB.Model(LogManagement{}).Count(&count)
 		return fmt.Sprintf("%d", count), true, nil
 	}
-
 	logManagementCountCache = &cache.Cache{
 		CacheClient:      cache.NewGoCache(),
 		KeyPrefix:        "peckergo_log_management_cnt_",

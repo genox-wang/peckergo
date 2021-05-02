@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"net/http"
 	"peckergo/api/model"
+	"net/http"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -13,8 +13,7 @@ import (
 
 const (
 	//JwtScretKey jwt secret key.
-	// TODO 认证密钥修改，多个网站使用同一个密钥令牌夸网站使用，不安全
-	JwtScretKey = "PECKER_GO"
+	JwtScretKey = "Q7nQGjXJyaRVaQvHZUPJReXs"
 )
 
 // JWTAuthRequired is auth middleware

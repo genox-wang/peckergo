@@ -7,6 +7,7 @@
         <slot name="top"></slot>
         <sidebar-menu
             v-show="!shrink"
+            :iconSize="20"
             :menu-theme="theme"
             :menu-list="menuList"
             :open-names="openNames"

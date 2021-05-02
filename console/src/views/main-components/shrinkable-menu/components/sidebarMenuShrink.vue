@@ -3,9 +3,9 @@
     <template v-for="(item, index) in menuList">
       <div style="text-align: center;" :key="index">
         <Dropdown transfer v-if="item.children.length !== 1" placement="right-start" :key="index" @on-click="changeMenu">
-          <Button style="width: 70px;margin-left: -5px;padding:10px 0;" type="text">
+          <div style="width: 70px;margin-left: -5px;padding:10px 0;">
             <Icon :size="20" :color="iconColor" :type="item.icon"></Icon>
-          </Button>
+          </div>
           <DropdownMenu style="width: 200px;" slot="list">
             <template v-for="(child, i) in item.children">
               <DropdownItem :name="child.name" :key="i">
@@ -16,9 +16,9 @@
           </DropdownMenu>
         </Dropdown>
         <Dropdown transfer v-else placement="right-start" :key="index" @on-click="changeMenu">
-          <Button @click="changeMenu(item.children[0].name)" style="width: 70px;margin-left: -5px;padding:10px 0;" type="text">
+          <div @click="changeMenu(item.children[0].name)" style="width: 70px;margin-left: -5px;padding:10px 0;">
             <Icon :size="20" :color="iconColor" :type="item.children[0].icon || item.icon"></Icon>
-          </Button>
+          </div>
           <DropdownMenu style="width: 200px;" slot="list">
             <DropdownItem :name="item.children[0].name" :key="'d' + index">
               <Icon :type="item.children[0].icon || item.icon"></Icon>

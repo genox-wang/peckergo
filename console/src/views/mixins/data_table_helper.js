@@ -18,7 +18,22 @@ export default {
       this.reset();
     },
 
-    sortChanged ({key, order}) {
+    toSnack (key) {
+      let tmp = '';
+      for (let i = 0; i < key.length; i++) {
+        if (key.charCodeAt(i) > 64 && key.charCodeAt(i) < 91) {
+          tmp += '_';
+        }
+        tmp += key[i];
+      }
+      return tmp.toLowerCase();
+    },
+
+    sortChanged ({
+      key,
+      order
+    }) {
+      key = this.toSnack(key);
       this.orders = this._.isEqual(order, 'desc') ? ['-' + key] : [key];
       this.reset();
     },
@@ -63,5 +78,4 @@ export default {
       });
     }
   }
-}
-;
+};

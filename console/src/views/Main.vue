@@ -17,9 +17,9 @@
     <div class="main-header-con" :style="{paddingLeft: shrink?'60px':'200px'}">
       <div class="main-header">
         <div class="navicon-con">
-          <Button :style="{transform: 'rotateZ(' + (this.shrink ? '-90' : '0') + 'deg)'}" type="text" @click="toggleClick">
-            <Icon type="md-menu" size="32"/>
-          </Button>
+          <div :style="{transform: 'rotateZ(' + (this.shrink ? '-90' : '0') + 'deg)',padding: '12px',}" @click="toggleClick">
+            <Icon type="md-menu" size="20"/>
+          </div>
         </div>
         <div class="header-middle-con">
           <div class="main-breadcrumb">

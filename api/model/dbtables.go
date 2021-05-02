@@ -62,7 +62,7 @@ func AllDbtabless(meta *TableMeta) *TableDbtables {
 	meta.Pagination.Total = uint(countStruct.Count)
 
 	dbtabless = append([]*Dbtables{
-		&Dbtables{
+		{
 			Name:      "Total",
 			Rows:      countStruct.Rows,
 			DataSize:  countStruct.DataSize,

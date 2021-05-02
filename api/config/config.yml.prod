@@ -1,6 +1,9 @@
 corsEnable: true
 
-serverPort: 8000
+# 监播地址 需要根据实际域名配置
+trackingServerURL: "http://adv.api.mcbox.cn"
+# 服务端口 生产环境根据情况配置
+serverPort: 8901
 
 log:
   # 0 = Panic 1 = Fatal 2 = Error 3 = Warn 4 = Info 5 = Debug
@@ -12,8 +15,12 @@ router:
 
 db:
   dbName: "peckergo"
-  dsn: "root:root@tcp(peckergo_mysql:3306)/peckergo?parseTime=true"
+  dsn: "root:root@tcp(172.22.164.54:3306)/peckergo?parseTime=true"
   showLog: false
+
+redis:
+  Addr: "172.22.164.54:6379"
+  
 
 # 默认管理员用户名密码
 admin:

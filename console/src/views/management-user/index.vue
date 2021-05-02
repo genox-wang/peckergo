@@ -15,7 +15,7 @@
                 <FormItem label="角色">
                   <Select v-model="role" style="width:200px" filterable clearable>
                     <Option :value="1">管理员</Option>
-                    <Option :value="2">操作员</Option>
+                    <Option :value="2">客户</Option>
                   </Select>
                 </FormItem>
               </Col>
@@ -115,7 +115,7 @@ export default {
           minWidth: 100,
           sortable: 'custom',
           render: (h, params) => {
-            const roles = ['未知', '管理员', '操作员'];
+            const roles = ['未知', '管理员', '客户'];
             const colors = ['warning', 'error', 'primary'];
             let id = params.row.role;
             return h('tag', {

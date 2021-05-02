@@ -1,10 +1,8 @@
 package middleware
 
 import (
-	"net/http"
 	"peckergo/api/model"
-
-	log "github.com/sirupsen/logrus"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,7 +12,12 @@ func AuthRoleRequired(roles ...int) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		u, _ := c.Get("user")
 		user := u.(model.User)
-		log.Warn(user)
+
+		if user.Role != model.RoleAdmin {
+			c.AbortWithStatus(http.StatusUnauthorized)
+		}
+
+		// log.Warn(user)
 		for _, r := range roles {
 			if r == user.Role {
 				c.Next()

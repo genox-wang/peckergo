@@ -1,35 +1,18 @@
 version: '2'
 
 services:
-  mysql:
-    build:
-      context: ./mysql
-    container_name: peckergo_mysql
-    volumes:
-      - mysqldata:/var/lib/mysql
-      - mysqllog:/var/log/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: peckergo
-    restart: always
-
   api:
     build:
       context: ./
     container_name: peckergo_api
     volumes:
       - ./peckergo:/app/peckergo
-      - ./api/config/config.yml.prod:/app/api/config/config.yml:ro
-      - /usr/local/go/lib/time/zoneinfo.zip:/usr/local/go/lib/time/zoneinfo.zip
-    ports:
-      - "8901:8000"
-    depends_on:
-      - mysql
+      - ./api/config/config.yml.prod:/app/config/config.yml:ro
+      - ./zoneinfo.zip:/usr/local/go/lib/time/zoneinfo.zip:ro
+      - /etc/ssl/certs/ca-bundle.crt:/etc/ssl/certs/ca-bundle.crt:ro
+    network_mode: host
+    # ports:
+    #   - "8901:8000"
     restart: always
-
-volumes:
-  mysqldata:
-  mysqllog:
-  
 
 

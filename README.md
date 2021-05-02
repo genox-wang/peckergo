@@ -1,80 +1,115 @@
-# PeckerGo
+# 说明文档
 
-![初始化项目](https://github.com/wilfordw/peckergo/blob/master/pecker_init_example.gif?raw=true)
+### 准备
 
-![添加 model](https://github.com/wilfordw/peckergo/blob/master/pecker_model_example.gif?raw=true)
+1. [安装Go](https://www.runoob.com/go/go-environment.html)
+2. [安装glide](https://github.com/Masterminds/glide)
+3. 安装node v10+
+4. [安装Docker](https://docs.docker.com/install/)
+5. [安装Docker Compose](https://docs.docker.com/compose/install/)
+6. 安装mysql8，建库 peckergo
+7. 安装redis
 
-### 简介
+### 本地运行
 
-- 前端技术 [Vue](https://github.com/vuejs/vue) + [iView](https://github.com/iview/iview) + [iView-Admin](https://github.com/iview/iview-admin) + [Webpack](https://github.com/webpack/webpack) 
-- 后端技术 [Gin](https://github.com/gin-gonic/gin) + [Gorm](https://github.com/gin-gonic/gin) + [Viper](https://github.com/spf13/viper)
+假设本地已搭建好mysql8[3306],redis[6379]
 
-基于以上技术开发的一键生成部署的，Admin 项目模板
+> 如果端口不一样请在 `api/config/config.yml` 里配置
 
-### 特点
+启动 API
 
-- 提供命令行工具 [pecker](http://git.ti-ding.com/wangji/pecker) 初始化项目，自动添加 model 代码
-- 后端支持跨域
-- 前后端登陆对接图片验证码支持
-- 用户认证基于 JWT
+```shell
+glide install  # 有些库可能需要全局代理
 
-### 准备工作
-
-安装 [packer](http://git.ti-ding.com/wangji/pecker)
-
-### 使用方法
-
-##### 初始化
-
-```bash
-// 在 `{$GOPATH}/src/` 目录下下载模板工程到yourApp
-git clone http://git.ti-ding.com/wangji/peckergo.git yourApp
-
-cd yourApp
-
-// 初始化模板
-pecker init
-
-```
-
-##### 运行后端代码 (需要 golang 10 + dep)
-
-```
-// mysql 数据库创建 yourApp 数据库
-
-// 使用 https://github.com/golang/dep 下载依赖
-dep ensure -v
+# 开关代理方法
+# alias setproxy="export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;"
+# alias unsetproxy="unset http_proxy;unset https_proxy"
 
 cd api
 
-// 启动后端 api 服务
-go run main.go
-
+go run main.go 
+# 启动默认 8000 端口
 ```
+启动前端页面
 
-##### 运行前端代码 (需要 npm 6 + node 10)
+```shell
 
-```
 cd console
 
-// 下载前端依赖
 npm install
 
-// 运行
-npm run serve
-
+npm run sever
 ```
 
-##### 项目部署 (需要 golang 10 + dep + npm 6 + node 10 + docker + docekr-compose)
+打开 http://localhost:8080/ 就能访问管理页面，初始账号密码 admin admin
 
-```
-// 项目克隆到服务器 src 文件下 
+> 身份 IP 过滤支持配置纯真IP服务  https://github.com/wilfordw/qqwry，参考里面的 Docker 部署
+> ip 服务配置在 api/config/config.yml -> ip 项
 
-cp yourApp
+### 生产环境部署
 
+创建 /www 目录用于部署静态页面
+
+配置 `config.yml.prod` 里相关参数
+
+```shell
 ./build.sh
 ```
+nginx 配置
 
-### 实践项目
+```
+server {
+  listen            80;
+  server_name       adv.api.mcbox.cn;
 
-[trans-trip-admin](http://git.ti-ding.com/hastrans/trans-trip-admin)
+  access_log /var/log/nginx/adv.api.access.log main;
+  #access_log off;
+  error_log /var/log/nginx/adv.api.error.log;
+
+
+  location / {
+     try_files /_not_exists_ @backend;
+  }
+
+  location @backend {
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header Host            $http_host;
+
+    proxy_pass http://127.0.0.1:8901;
+  }
+}
+```
+
+```
+server {
+  listen            80;
+  server_name       adv.console.mcbox.cn;
+
+  root /www/peckergo;
+  index index.html;
+
+  gzip on;
+  gzip_min_length 1k;
+  gzip_comp_level 2;
+  gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+  gzip_vary on;
+  gzip_disable "MSIE [1-6]\.";
+
+  location / {
+      try_files $uri $uri/ = 404;
+  }
+}
+```
+
+### 常用 docker 命令
+
+```shell
+docker ps #插件运行中 docker 容器
+docker stop 容器名 #停用容器
+docker start 容器名 #启动容器
+docker restart 容器名 #重启容器
+docker logs -f 容器名 #查看容器日志
+```
+### 关于广告扩展
+
+接入的 API 逻辑都在 `api/logic` 文件夹下。目前只对接了移云和众盟，如有新增广告主，在里面添加转换逻辑即可

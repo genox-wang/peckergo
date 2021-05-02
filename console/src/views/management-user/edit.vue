@@ -25,7 +25,7 @@
           <FormItem label="角色">
              <Select v-model="form.role">
               <Option :value="1">管理员</Option>
-              <Option :value="2">操作员</Option>
+              <Option :value="2">客户</Option>
             </Select>
           </FormItem>
         </Col>

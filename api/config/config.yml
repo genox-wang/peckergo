@@ -1,5 +1,7 @@
 corsEnable: true
 
+trackingServerURL: "http://localhost:8000" 
+
 serverPort: 8000
 
 log:
@@ -15,12 +17,17 @@ db:
   dsn: "root:root@tcp(localhost:3306)/peckergo?parseTime=true"
   showLog: true
 
+redis:
+  Addr: "localhost:6379"
+
 # 默认管理员用户名密码
 admin:
   userName: "admin"
   password: "admin"
 
+# stack 错误崩溃日志上报 不用可关闭
 slack:
-  enabled: true
+  enabled: false
   channel: "#peckergo"
   key: "TC43M8257/BC4G2E36X/lpOiyrBUF0BIyeEB6EqWaidK"
+  

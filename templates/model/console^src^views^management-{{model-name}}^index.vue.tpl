@@ -121,6 +121,7 @@ export default {
     };
   },
   methods: {
+    
     onNew () {
       this.$router.push({
         name: '{{model_name}}_new'
