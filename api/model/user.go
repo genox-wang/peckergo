@@ -12,7 +12,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	cache "github.com/wilfordw/go-cachemid"
+	cache "github.com/genox-wang/go-cachemid"
 )
 
 const (
@@ -112,7 +112,7 @@ func init() {
 
 	userCountCache = &cache.Cache{
 		CacheClient:      cache.NewGoCache(),
-		KeyPrefix:        "user_",
+		KeyPrefix:        "peckergo_user_",
 		FuncReadData:     funcReadData,
 		ExpireTime:       time.Minute * 5,
 		Cache2Enabled:    true,

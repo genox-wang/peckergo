@@ -13,11 +13,14 @@
 ```
 // mysql 数据库创建 yourApp 数据库
 
+
+cd yourApp
+
 // 下载依赖
-glide update
+go mod
 
 // 启动后端 api 服务
-go run api/main.go
+go run main.go
 
 ```
 
@@ -46,7 +49,7 @@ cp yourApp
 
 ### 三 开发准备工作 
 
-安装 [packer](http://git.ti-ding.com/wangji/pecker)
+安装 [packer](https://github.com/genox-wang/pecker)
 
 ### 四 开发
 
